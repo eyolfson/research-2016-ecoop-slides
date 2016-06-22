@@ -84,8 +84,17 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Motivation}
+    \frametitle{Immutability}
+    \centering
+    \begin{tikzpicture}
+      \node [draw=red, line width=3mm, forbidden sign, font=\Huge,
+             minimum size=25mm, scale=2]
+        {Writes};
+    \end{tikzpicture}
+  \end{frame}
 
+  \begin{frame}
+    \frametitle{The Caller Expects \texttt{C} to not Change}
     \centering
     \begin{tikzpicture}
       \matrix (decl) {
@@ -97,30 +106,51 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Immutability}
-
-    Explain
-
-    Physical vs. abstract
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Why C++?}
-
-    It has some concept of immutability
-
-    Tie some related work in
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Research Questions}
+    \frametitle{C++ \const{} and Immutability}
     \Large
-    \begin{enumerate}
-      \setlength\itemsep{1em}
-      \item Do developers write-though-\const{}?
-      \item How do they write-through-\const{}?
-      \item Why do developers write-through-\const{}?
-    \end{enumerate}
+    C++ has some notion of immutability in the language
+
+    \vspace{1em}
+    \const{} represents \structure{shallow} physical immutability
+
+    \vspace{1em}
+    Shallow immutability does not allow fields to change
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{We Assume \const{} Means Deep Physical Immutability}
+    \Large
+
+    \structure{Deep} immutability does not allow changes through fields
+
+    \vspace{1em}
+    This is the most restrictive form of immutability
+
+    \vspace{1em}
+    A write-through-\const{} is a violation of deep immutability
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Research Question 1: Do developers write-though-\const{}?}
+    \Large
+
+    Yes, they violate shallow and \structure{deep} immutability
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Research Question 2: How developers write-though-\const{}?}
+    \Large
+
+    Either by using \texttt{mutable} or transitively through fields
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Research Question 3: Why do developers write-though-\const{}?}
+    \Large
+    Conventional wisdom is for buffering / caching
+
+    \vspace{1em}
+    We found \structure{around half} are for invalid reasons
   \end{frame}
 
   \begin{frame}
@@ -168,7 +198,6 @@ i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& 
   \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
       };
-
       \draw [arrow] (decl) -- node [right, xshift=1mm] {Fast} (defn);
     \end{tikzpicture}
   \end{frame}
@@ -176,7 +205,7 @@ i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& 
   \begin{frame}
     \frametitle{Type System Only Approachs are Restrictive}
     \Large
-    Immutability is either:
+    Abstract immutability is either:
 
     \begin{itemize}
       \item Unsupported
@@ -185,7 +214,7 @@ i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{Motivation (BAD)}
+    \frametitle{Incorrect \const{} Methods Lead to Errors}
     \Large
     Hashmap
   \end{frame}
