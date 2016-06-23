@@ -11,3 +11,5 @@
 *.toc
 *.vrb
 *.vtc
+
+!/aec-badge-ecoop.pdf

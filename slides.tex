@@ -26,6 +26,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{positioning}
 \usetikzlibrary{matrix}
 \usetikzlibrary{shapes}
@@ -49,8 +50,9 @@
            \usebeamerfont{title}\usebeamercolor[fg]{title}An Empirical\\
            \usebeamerfont{title}\usebeamercolor[fg]{title}Study of Writes-\\
            \usebeamerfont{title}\usebeamercolor[fg]{title}Through-\const{}};
-    \node at (\paperwidth * 2 / 3, \paperheight * 2 / 3) {\insertauthor};
-    \node at (\paperwidth * 2 / 3, \paperheight / 3) {\insertdate};
+    \node (author) [scale=1.5] at (\paperwidth * 2 / 3, \paperheight * 2 / 3) {\insertauthor};
+    \node [node distance=-2mm, below=of author] {\texttt{https://eyl.io/}};
+    \node [scale=1.5] at (\paperwidth * 2 / 3, \paperheight / 3) {\insertdate};
   \end{tikzpicture}
 }
 
@@ -95,6 +97,7 @@
 
   \begin{frame}
     \frametitle{The Caller Expects \texttt{C} to not Change}
+    \large
     \centering
     \begin{tikzpicture}
       \matrix (decl) {
@@ -157,8 +160,11 @@
     \frametitle{Physical Immutability}
     \centering
     \large
-    \begin{tikzpicture}
-      \matrix (decl) {
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+
+      \matrix (decl) at ($ (current page.center) + (0, 20mm) $) {
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
         e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \&
         |[blue]|t \& ; \\
@@ -174,7 +180,7 @@
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
   };
 
-      \draw [arrow] (decl) -- node [right, xshift=1mm] {Slow} (defn);
+      \draw [arrow] (decl) -- node [right, xshift=1mm] {\normalsize Slow} (defn);
     \end{tikzpicture}
   \end{frame}
 
@@ -182,8 +188,10 @@
     \frametitle{Abstract Immutability}
     \large
     \centering
-    \begin{tikzpicture}
-      \matrix (decl) {
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix (decl) at ($ (current page.center) + (0, 20mm) $) {
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
         e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \&
         |[blue]|t \& ; \\
@@ -198,7 +206,7 @@ i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& 
   \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
       };
-      \draw [arrow] (decl) -- node [right, xshift=1mm] {Fast} (defn);
+      \draw [arrow] (decl) -- node [right, xshift=1mm] {\normalsize Fast} (defn);
     \end{tikzpicture}
   \end{frame}
 
@@ -215,82 +223,224 @@ i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& 
 
   \begin{frame}
     \frametitle{Incorrect \const{} Methods Lead to Errors}
-    \Large
-    Hashmap
+    \large
+    \begin{tikzpicture}[node distance=5mm]
+      \matrix (defn) {
+i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  \&   \& i \& f \&  \& ( \& |[red, fill=red]|! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \& ) \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&  \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \&   \& = \&   \& l \& o \& n \& g \& C \& a \& l \& c \& u \& l \& a \& t \& i \& o \& n \& ( \& ) \& ; \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \&   \& = \&   \& t \& r \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  \&   \& \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+\} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+      };
+
+      \matrix (first) [below=of defn] {
+u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
+      };
+
+      \node [right=of first, xshift=-2mm, circle, fill=green] {$\checkmark$};
+
+      \matrix (second) [below=of first] {
+u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
+      };
+
+      \node [right=of second, xshift=-2mm, circle, fill=red] {$\times$};
+
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{Technique Overview}
+    \frametitle{Our Dynamic Analysis Reports Writes-Through-\const{}}
+    \Large
+    Based on the sanitizer family of Clang tools --- ConstSanitizer
 
-    \begin{enumerate}
-      \item C++ additional metadata
-      \item LLVM instrumentation
-      \item Runtime library
-    \end{enumerate}
+    \vspace{1em}
+    Reports all writes-through-\const{}
+
+    \vspace{1em}
+    Adds instrumentation during compilation
+
+    \vspace{1em}
+    Linking includes our runtime library
   \end{frame}
 
   \begin{frame}
-    \frametitle{Technique}
+    \frametitle{Instrumentation Adds Shadow Values for Variables}
     \Large
-    Report writes through \const{} that are unchecked by compiler
+    Shadow value encode \const{} qualifiers based on type \texttt{T}
 
-    Also follow writes though \const{} cast (sledgehammer)
+    \centering
+    \vspace{2em}
+ \begin{tikzpicture}[->,>=stealth',shorten >=0.5mm,node distance=2cm]
+
+    \draw [decorate,decoration={brace,amplitude=3mm},-,xshift=0pt,yshift=0pt]
+          (-0.7,0.3) -- (8.5,0.3)node [black,midway,yshift=0.6cm]
+          {\textit{Shadow Value}};
+    \node (b1) {$b_{n+1}$};
+    \node [right of=b1] (b2) {$b_n$};
+    \node [right of=b2] (b3) {$b_{n-1}$};
+    \node [right of=b3] (b4) {...};
+    \node [right of=b4] (b5) {$b_0$};
+    \node [below of=b1, node distance=1cm] (b1t)
+          {Is \texttt{T} \const{}?};
+    \node [below of=b2] (b2t)
+          {Is \texttt{T*} \const{}?};
+    \node [below of=b3, node distance=1cm] (b3t)
+          {Is \texttt{T**} \const{}?};
+    \node [below of=b5, node distance=1cm] (b5t)
+          {Is \texttt{T$(\texttt{*})^n$} \const{}?};
+
+    \path (b1t) edge (b1)
+          (b2t) edge (b2)
+          (b3t) edge (b3)
+          (b5t) edge (b5);
+  \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{Technique}
-    \Large
-    Shadow values with example
+    \frametitle{Our Shadow Values Propogate \const{}}
+    \large
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix (defn) at ($ (current page.center) - (20mm, 10mm) $) {
+        i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
 
-    Arguments are passed through TLS
+  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \& ) \&   \& \{  \\
+
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+
+        \& \& \} \\
+
+  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \& ; \\
+
+        \} \\
+      };
+
+      \matrix (call) [above=of defn] {
+        |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& \& C
+        \&  \& c \& ; \\
+
+        c \& . \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& ; \\
+      };
+
+      \draw [arrow] (call) -- node [right, xshift=1mm] {\normalsize Call} (defn);
+
+      \node (sv2) [right=of defn.north east, anchor=north west] {\texttt{this}:};
+      \node [fill=yellow!50, node distance=1mm, right=of sv2] {\texttt{1X}};
+
+      \node (sv1) [node distance=15mm, above=of sv2.west, anchor=west] {\texttt{c}:};
+      \node [fill=yellow!50, node distance=1mm, right=of sv1] {\texttt{1}};
+
+      \draw [arrow] (sv1) -- node [right, xshift=1mm] {\normalsize Passed through TLS} (sv2);
+
+      \node [below=of sv2] (sv3) {$f_0$:};
+      \node [fill=yellow!50, node distance=1mm, right=of sv3] {\texttt{1}};
+
+      \node [right=of sv3] (sv4) {$f_1$:};
+      \node [fill=yellow!50, node distance=1mm, right=of sv4] {\texttt{1}};
+
+      \draw [arrow] (sv2) -- (sv3);
+      \draw [arrow] (sv2) -- node [right, xshift=1mm] {\normalsize Computed} (sv4);
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{How?}
+    \frametitle{We Cannot Use \const{} Qualifiers on Method Declarations}
+    \large
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix (defn) at ($ (current page.center) - (20mm, 10mm) $) {
+        i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
+
+  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \& ) \&   \& \{  \\
+
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+
+        \& \& \} \\
+
+  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \& ; \\
+
+        \} \\
+      };
+
+      \matrix (call) [above=of defn] {
+        C \&  \& c \& ; \\
+
+        c \& . \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& ; \\
+      };
+
+      \draw [arrow] (call) -- node [right, xshift=1mm] {\normalsize Call} (defn);
+
+      \node (sv2) [right=of defn.north east, anchor=north west] {\texttt{this}:};
+      \node [fill=yellow!50, node distance=1mm, right=of sv2] {\texttt{0X}};
+
+      \node (sv1) [node distance=15mm, above=of sv2.west, anchor=west] {\texttt{c}:};
+      \node [fill=yellow!50, node distance=1mm, right=of sv1] {\texttt{0}};
+
+      \draw [arrow] (sv1) -- node [right, xshift=1mm] {\normalsize Passed through TLS} (sv2);
+
+      \node [below=of sv2] (sv3) {$f_0$:};
+      \node [fill=yellow!50, node distance=1mm, right=of sv3] {\texttt{0}};
+
+      \node [right=of sv3] (sv4) {$f_1$:};
+      \node [fill=yellow!50, node distance=1mm, right=of sv4] {\texttt{0}};
+
+      \draw [arrow] (sv2) -- (sv3);
+      \draw [arrow] (sv2) -- node [right, xshift=1mm] {\normalsize Computed} (sv4);
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{C++ Developers Can Write-Through-\const{} 3 Ways}
     \Large
+    Using the \texttt{mutable} keyword (allows all writes to fields)
 
-    Transitive
+    \vspace{1em}
+    Transitively (C++ does not enforce deep immutability)
 
-    Mutable
-
-    \const{} cast
+    \vspace{1em}
+    Using \texttt{const\_cast} (removes the qualifier)
   \end{frame}
 
   \begin{frame}
     \frametitle{Reasons for Writes Through Immutable Declarations}
     \Large
     \begin{itemize}
-      \item Buffer / caching
-      \item Delayed initialization
-      \item Incorrect (around {\color{blue} half}!)
+      \setlength\itemsep{0.5em}
+      \item Buffer / Caching
+      \item Delayed Initialization
     \end{itemize}
 
-    Additional:
+    \vspace{2em}
+    Additionally:
+    \vspace{0.25em}
     \begin{itemize}
+      \setlength\itemsep{0.5em}
       \item Not visible (not accessible through public API)
-      \item Synchronization
+      \item Synchronization (write while holding lock)
     \end{itemize}
   \end{frame}
 
   \begin{frame}
-    \frametitle{Results Overview}
+    \frametitle{We Ran Our Experiments on 7 C++ Projects}
     \Large
-    Overview of projects
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Not Visible Example}
-    \centering
-    \large
-    \begin{tikzpicture}
-  \matrix  {
-c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& l \& e \&   \& : \&   \& p \& u \& b \& l \& i \& c \&   \& R \& a \& n \& d \& o \& m \& A \& c \& c \& e \& s \& s \& F \& i \& l \& e \&   \& \{ \\
-  \&   \& v \& i \& r \& t \& u \& a \& l \&   \& S \& t \& a \& t \& u \& s \&   \& R \& e \& a \& d \& ( \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& o \& u \& n \& t \& e \& r \& \_ \& - \& > \& I \& n \& c \& r \& e \& m \& e \& n \& t \& ( \& ) \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-  \&   \& \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-\} \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-  };
-    \end{tikzpicture}
+    \begin{itemize}
+      \setlength\itemsep{0.5em}
+      \item Protobuf
+      \item LevelDB
+      \item fish shell
+      \item Mosh (mobile shell)
+      \item LLVM TableGen
+      \item Tesseract
+      \item Ninja
+    \end{itemize}
   \end{frame}
 
   \begin{frame}
@@ -326,6 +476,21 @@ c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& 
   \end{frame}
 
   \begin{frame}
+    \frametitle{LevelDB Not Visible Example}
+    \centering
+    \large
+    \begin{tikzpicture}
+  \matrix  {
+c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& l \& e \&   \& : \&   \& p \& u \& b \& l \& i \& c \&   \& R \& a \& n \& d \& o \& m \& A \& c \& c \& e \& s \& s \& F \& i \& l \& e \&   \& \{ \\
+  \&   \& v \& i \& r \& t \& u \& a \& l \&   \& S \& t \& a \& t \& u \& s \&   \& R \& e \& a \& d \& ( \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& o \& u \& n \& t \& e \& r \& \_ \& - \& > \& I \& n \& c \& r \& e \& m \& e \& n \& t \& ( \& ) \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  \&   \& \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+\} \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  };
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Unique Archetypes from All Other Projects}
     \Large
     \begin{tabular}{p{2.65cm} p{4cm} c c}
@@ -342,10 +507,10 @@ c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{Answers to RQs}
+    \frametitle{Answers to Research Questions}
     \Large
     \begin{enumerate}
-      \setlength\itemsep{1em}
+      \setlength\itemsep{0.5em}
       \item Developers routinely write-through-\const{}
       \item Equally prefer using \texttt{mutable} and transitive
       \item The majority of the time developers should not write-through-\const{}
@@ -354,11 +519,30 @@ c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& 
 
   \begin{frame}
     \frametitle{Summary}
+    \Large
+    There are legitimate reasons for \texttt{mutable}
 
-    Good reasons for mutable
+    \vspace{1em}
+    Most developers intend to mean deep abstract immutability
 
-    May as well have deep
+    \vspace{1em}
+    Currently, most writes-through-\const{} should not happen
+  \end{frame}
 
-    Motivate future work
+  \begin{frame}
+    \frametitle{Try It Out}
+
+    \begin{center}
+      \includegraphics[scale=0.1]{aec-badge-ecoop}
+
+      \vspace{0.25em}
+      \texttt{\huge https://github.com/eyolfson}
+      \texttt{https://github.com/eyolfson/research-2016-ecoop-artifact}
+      \texttt{https://github.com/eyolfson/research-2016-ecoop-paper}
+
+      \vspace{2em}
+      \texttt{\huge https://eyl.io/research}
+    \end{center}
+
   \end{frame}
 \end{document}
