@@ -52,6 +52,8 @@
            \usebeamerfont{title}\usebeamercolor[fg]{title}Through-\const{}};
     \node (author) [scale=1.5] at (\paperwidth * 2 / 3, \paperheight * 2 / 3) {\insertauthor};
     \node [node distance=-2mm, below=of author] {\texttt{https://eyl.io/}};
+    \node (a2) [scale=1.5] at (\paperwidth * 2 / 3, \paperheight / 2) {Patrick Lam};
+    \node [node distance=-2mm, below=of a2] {\texttt{http://patricklam.ca/}};
     \node [scale=1.5] at (\paperwidth * 2 / 3, \paperheight / 3) {\insertdate};
   \end{tikzpicture}
 }
@@ -118,6 +120,15 @@
 
     \vspace{1em}
     Shallow immutability does not allow fields to change
+
+    \vspace{1em}
+    \centering
+    \begin{tikzpicture}
+      \matrix {
+        t \& h \& i \& s \& - \& > \& v \& a \& l \& u \& e \& \& = \&
+        \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+      };
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
@@ -131,26 +142,42 @@
 
     \vspace{1em}
     A write-through-\const{} is a violation of deep immutability
+
+    \vspace{1em}
+    \centering
+    \begin{tikzpicture}
+      \matrix {
+        * \& ( \& t \& h \& i \& s \& - \& > \& p \& t \& r \& ) \& \& = \&
+        \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+      };
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{Research Question 1: Do developers write-though-\const{}?}
     \Large
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}
+     Research Question 1: Do developers write-though-\const{}?}
 
+    \vspace{1em}
     Yes, they violate shallow and \structure{deep} immutability
   \end{frame}
 
   \begin{frame}
-    \frametitle{Research Question 2: How developers write-though-\const{}?}
     \Large
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}
+     Research Question 2: How developers write-though-\const{}?}
 
+    \vspace{1em}
     Either by using \texttt{mutable} or transitively through fields
   \end{frame}
 
   \begin{frame}
-    \frametitle{Research Question 3: Why do developers write-though-\const{}?}
     \Large
-    Conventional wisdom is for buffering / caching
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}
+     Research Question 3: Why do developers write-though-\const{}?}
+
+    \vspace{1em}
+    Conventional wisdom: buffering / caching
 
     \vspace{1em}
     We found \structure{around half} are for invalid reasons
@@ -211,7 +238,7 @@ i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{Type System Only Approachs are Restrictive}
+    \frametitle{Type System Only Approaches are Restrictive}
     \Large
     Abstract immutability is either:
 
@@ -299,7 +326,7 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
   \end{frame}
 
   \begin{frame}
-    \frametitle{Our Shadow Values Propogate \const{}}
+    \frametitle{Our Shadow Values Propagate \const{}}
     \large
     \begin{tikzpicture}[remember picture,
                         overlay,
@@ -431,16 +458,18 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
   \begin{frame}
     \frametitle{We Ran Our Experiments on 7 C++ Projects}
     \Large
-    \begin{itemize}
-      \setlength\itemsep{0.5em}
-      \item Protobuf
-      \item LevelDB
-      \item fish shell
-      \item Mosh (mobile shell)
-      \item LLVM TableGen
-      \item Tesseract
-      \item Ninja
-    \end{itemize}
+    \centering
+    \begin{tabular}{l r}
+      & \textbf{LoC} \\
+
+      Protobuf & 214 k\\
+      LevelDB & 18 k \\
+      fish shell & 48 k \\
+      Mosh (mobile shell) & 13 k \\
+      LLVM TableGen & 34 k \\
+      Tesseract & 147 k \\
+      Ninja & 15 k \\
+    \end{tabular}
   \end{frame}
 
   \begin{frame}
