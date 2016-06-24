@@ -18,6 +18,14 @@
 \setbeamerfont{title}{series=\bfseries}
 \setbeamerfont{frametitle}{series=\bfseries}
 
+\setbeamertemplate{footline}{
+  \begin{tikzpicture}[remember picture,
+                      overlay,
+                      shift={(current page.south west)}]
+    \node [black!50, inner sep=2mm, anchor=south east] at (current page.south east) {\large \bfseries \insertframenumber};
+  \end{tikzpicture}
+}
+
 \usepackage{fontspec}
 \setmainfont[Ligatures=TeX]{Tinos}
 \setsansfont{Arimo}[Scale=MatchLowercase]
@@ -163,7 +171,7 @@
      Research Question 1: Do developers write-though-\const{}?}
 
     \vspace{1em}
-    Yes, they violate shallow and \structure{deep} immutability
+    Yes, they violate \structure{shallow} and deep immutability
   \end{frame}
 
   \begin{frame}
@@ -244,7 +252,7 @@ i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& 
   \begin{frame}
     \frametitle{Type System Only Approaches are Restrictive}
     \Large
-    Abstract immutability is either:
+    Logically \const{} is either:
 
     \begin{itemize}
       \item Unsupported
@@ -374,7 +382,7 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
       \node (sv1) [node distance=15mm, above=of sv2.west, anchor=west] {\texttt{c}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv1] {\texttt{1}};
 
-      \draw [arrow] (sv1) -- node [right, xshift=1mm] {\normalsize Passed through TLS} (sv2);
+      \draw [arrow] (sv1) -- node [scale=0.7, right, align=left, xshift=3mm] {Passed through\\thread local storage} (sv2);
 
       \node [below=of sv2] (sv3) {$f_0$:};
       \node [fill=yellow!50, node distance=1mm, right=of sv3] {\texttt{1}};
@@ -383,7 +391,7 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
       \node [fill=yellow!50, node distance=1mm, right=of sv4] {\texttt{1}};
 
       \draw [arrow] (sv2) -- (sv3);
-      \draw [arrow] (sv2) -- node [right, xshift=1mm] {\normalsize Computed} (sv4);
+      \draw [arrow] (sv2) -- node [scale=0.7, right, xshift=3mm] {\normalsize Computed} (sv4);
     \end{tikzpicture}
   \end{frame}
 
@@ -423,7 +431,7 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
       \node (sv1) [node distance=15mm, above=of sv2.west, anchor=west] {\texttt{c}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv1] {\texttt{0}};
 
-      \draw [arrow] (sv1) -- node [right, xshift=1mm] {\normalsize Passed through TLS} (sv2);
+      \draw [arrow] (sv1) -- node [scale=0.7, right, align=left, xshift=3mm] {Passed through\\thread local storage} (sv2);
 
       \node [below=of sv2] (sv3) {$f_0$:};
       \node [fill=yellow!50, node distance=1mm, right=of sv3] {\texttt{0}};
@@ -432,7 +440,7 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
       \node [fill=yellow!50, node distance=1mm, right=of sv4] {\texttt{0}};
 
       \draw [arrow] (sv2) -- (sv3);
-      \draw [arrow] (sv2) -- node [right, xshift=1mm] {\normalsize Computed} (sv4);
+      \draw [arrow] (sv2) -- node [scale=0.7, right, xshift=3mm] {\normalsize Computed} (sv4);
     \end{tikzpicture}
   \end{frame}
 
@@ -580,23 +588,12 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{Answers to Research Questions}
-    \Large
-    \begin{enumerate}
-      \setlength\itemsep{0.5em}
-      \item Developers routinely write-through-\const{}
-      \item Equally prefer using \texttt{mutable} and transitive
-      \item The majority of the time developers should not write-through-\const{}
-    \end{enumerate}
-  \end{frame}
-
-  \begin{frame}
     \frametitle{fish shell Removes \const{} then Writes}
     \centering
     \begin{tikzpicture}
 
       \matrix (wgetopt) {
-|[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& \_ \& w \& g \& e \& t \& o \& p \& t \& \_ \& i \& n \& t \& e \& r \& n \& a \& l \& ( \& \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& c \& o \& n \& s \& t \&   \& * \& a \& r \& g \& v \& , \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{ \\
+|[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& \_ \& w \& g \& e \& t \& o \& p \& t \& \_ \& i \& n \& t \& e \& r \& n \& a \& l \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& c \& o \& n \& s \& t \&   \& * \& a \& r \& g \& v \& , \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{ \\
   \&   \& e \& x \& c \& h \& a \& n \& g \& e \& ( \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& * \& ) \&   \& a \& r \& g \& v \& ) \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&    \\
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&    \\
   };
@@ -632,12 +629,23 @@ v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& 
   \end{frame}
 
   \begin{frame}
+    \frametitle{Answers to Research Questions}
+    \Large
+    \begin{enumerate}
+      \setlength\itemsep{0.5em}
+      \item Developers routinely write-through-\const{}
+      \item Equally prefer using \texttt{mutable} and transitive
+      \item The majority of the time developers should not write-through-\const{}
+    \end{enumerate}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Summary}
     \Large
-    There are legitimate reasons for \texttt{mutable}
+    Most developers intend to mean deep abstract immutability
 
     \vspace{1em}
-    Most developers intend to mean deep abstract immutability
+    There are legitimate reasons for \texttt{mutable}
 
     \vspace{1em}
     Currently, most writes-through-\const{} should not happen
