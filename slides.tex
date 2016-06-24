@@ -44,17 +44,19 @@
                       overlay,
                       shift={(current page.south west)}]
     \node (title) [inner sep=0, scale=1.5, align=left]
-          at (\paperwidth / 3, \paperheight / 2)
-          {\usebeamerfont{title}\usebeamercolor[fg]{title}C++ \const{} and\\
+          at (\paperwidth / 2, \paperheight * 2 / 3)
+          {\usebeamerfont{title}\usebeamercolor[fg]{title}C++ \const{} and
            \usebeamerfont{title}\usebeamercolor[fg]{title}Immutability:\\
-           \usebeamerfont{title}\usebeamercolor[fg]{title}An Empirical\\
-           \usebeamerfont{title}\usebeamercolor[fg]{title}Study of Writes-\\
+           \usebeamerfont{title}\usebeamercolor[fg]{title}An Empirical
+           \usebeamerfont{title}\usebeamercolor[fg]{title}Study of Writes-
            \usebeamerfont{title}\usebeamercolor[fg]{title}Through-\const{}};
-    \node (author) [scale=1.5] at (\paperwidth * 2 / 3, \paperheight * 2 / 3) {\insertauthor};
+
+    \node (author) [scale=1.5] at (\paperwidth / 3, \paperheight / 3) {\insertauthor};
     \node [node distance=-2mm, below=of author] {\texttt{https://eyl.io/}};
-    \node (a2) [scale=1.5] at (\paperwidth * 2 / 3, \paperheight / 2) {Patrick Lam};
+    \node (a2) [scale=1.5] at (\paperwidth * 2 / 3, \paperheight / 3) {Patrick Lam};
     \node [node distance=-2mm, below=of a2] {\texttt{http://patricklam.ca/}};
-    \node [scale=1.5] at (\paperwidth * 2 / 3, \paperheight / 3) {\insertdate};
+    \node [anchor=south east] at (\paperwidth, 0) {\insertdate};
+    \node [yshift=-2mm] at (\paperwidth / 2, \paperheight /2) {\includegraphics[scale=0.3]{uwaterloo-logo}};
   \end{tikzpicture}
 }
 
@@ -116,7 +118,7 @@
     C++ has some notion of immutability in the language
 
     \vspace{1em}
-    \const{} represents \structure{shallow} physical immutability
+    \const{} represents \structure{shallow} immutability
 
     \vspace{1em}
     Shallow immutability does not allow fields to change
@@ -124,15 +126,16 @@
     \vspace{1em}
     \centering
     \begin{tikzpicture}
-      \matrix {
+      \matrix (bad) {
         t \& h \& i \& s \& - \& > \& v \& a \& l \& u \& e \& \& = \&
         \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
       };
+      \node [right=of bad, xshift=-7mm, circle, fill=red] {$\times$};
     \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{We Assume \const{} Means Deep Physical Immutability}
+    \frametitle{We Assume \const{} Means Deep Immutability}
     \Large
 
     \structure{Deep} immutability does not allow changes through fields
@@ -146,10 +149,11 @@
     \vspace{1em}
     \centering
     \begin{tikzpicture}
-      \matrix {
+      \matrix (bad) {
         * \& ( \& t \& h \& i \& s \& - \& > \& p \& t \& r \& ) \& \& = \&
         \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
       };
+      \node [right=of bad, xshift=-7mm, circle, fill=red] {$\times$};
     \end{tikzpicture}
   \end{frame}
 
@@ -184,7 +188,7 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Physical Immutability}
+    \frametitle{Strict Immutability}
     \centering
     \large
     \begin{tikzpicture}[remember picture,
@@ -212,7 +216,7 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Abstract Immutability}
+    \frametitle{Logically \const{}}
     \large
     \centering
     \begin{tikzpicture}[remember picture,
@@ -251,28 +255,36 @@ i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& 
   \begin{frame}
     \frametitle{Incorrect \const{} Methods Lead to Errors}
     \large
+    \centering
     \begin{tikzpicture}[node distance=5mm]
-      \matrix (defn) {
-i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-  \&   \& i \& f \&  \& ( \& |[red, fill=red]|! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \& ) \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&  \\
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \&   \& = \&   \& l \& o \& n \& g \& C \& a \& l \& c \& u \& l \& a \& t \& i \& o \& n \& ( \& ) \& ; \\
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \&   \& = \&   \& t \& r \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-  \&   \& \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-\} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-      };
+  \matrix (unrelated) {
+v \& o \& i \& d \&   \& u \& n \& r \& e \& l \& a \& t \& e \& d \& ( \& ) \&   \& |[blue]|c \& |
+[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ 
+\&   \&   \\
+  \&   \& t \& h \& i \& s \& - \& > \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \&   \& = \&  
+ \& 4 \& 2 \& ; \\
+\} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&  
+ \&   \&   \&   \\
+  };
 
-      \matrix (first) [below=of defn] {
+      \matrix (first) [node distance=10mm, below=of unrelated, minimum width=40mm] {
 u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
       };
+
+
+      \node [below=of unrelated] {\normalsize \texttt{getValue()} used as hash};
 
       \node [right=of first, xshift=-2mm, circle, fill=green] {$\checkmark$};
 
-      \matrix (second) [below=of first] {
+      \matrix (second) [node distance=-1mm, below=of first] {
+        c \& . \& u \& n \& r \& e \& l \& a \& t \& e \& d \& ( \& ) \& ; \& \& \& \& \& \& \& \& \\
+      };
+
+      \matrix (third) [node distance=-1mm, below=of second] {
 u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
       };
 
-      \node [right=of second, xshift=-2mm, circle, fill=red] {$\times$};
+      \node [right=of third, xshift=-2mm, circle, fill=red] {$\times$};
 
     \end{tikzpicture}
   \end{frame}
@@ -473,6 +485,18 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
   \end{frame}
 
   \begin{frame}
+    \frametitle{We Manually Categorized All Writes-Through-\const{}}
+    \Large
+    Compiled projects with ConstSaniziter and ran tests (or executable)
+
+    \vspace{1em}
+    Grouped similar static locations into archetyptes
+
+    \vspace{1em}
+    Each archetype has a root cause and previous attributes
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Protobuf's Unique Archetypes}
     \Large
     \begin{tabular}{p{2.65cm} p{4cm} c c}
@@ -486,6 +510,22 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
       \texttt{mutable} & Delayed Initialization & Yes & Yes \\
       & & & \\
     \end{tabular}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Protobuf Caching Example}
+    \centering
+    \large
+    \begin{tikzpicture}
+      \matrix {
+i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& t \& o \& r \& P \& r \& o \& t \& o \& : \& : \& B \& y \& t \& e \& S \& i \& z \& e \& ( \& ) \&   \& c \& o \& n \& s \& t \&   \& \{ \\
+  \&   \& G \& O \& O \& G \& L \& E \& \_ \& S \& A \& F \& E \& \_ \& C \& O \& N \& C \& U \& R \& R \& E \& N \& T \& \_ \& W \& R \& I \& T \& E \& S \& \_ \& B \& E \& G \& I \& N \& ( \& ) \& ; \&   \&   \&   \&   \\
+  \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& \_ \& c \& a \& c \& h \& e \& d \& \_ \& s \& i \& z \& e \& \_ \&   \& = \&   \& t \& o \& t \& a \& l \& \_ \& s \& i \& z \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  \&   \& G \& O \& O \& G \& L \& E \& \_ \& S \& A \& F \& E \& \_ \& C \& O \& N \& C \& U \& R \& R \& E \& N \& T \& \_ \& W \& R \& I \& T \& E \& S \& \_ \& E \& N \& D \& ( \& ) \& ; \&   \&   \&   \&   \&   \&   \\
+
+\} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+      };
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
@@ -509,13 +549,17 @@ u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \&
     \centering
     \large
     \begin{tikzpicture}
-  \matrix  {
-c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& l \& e \&   \& : \&   \& p \& u \& b \& l \& i \& c \&   \& R \& a \& n \& d \& o \& m \& A \& c \& c \& e \& s \& s \& F \& i \& l \& e \&   \& \{ \\
-  \&   \& v \& i \& r \& t \& u \& a \& l \&   \& S \& t \& a \& t \& u \& s \&   \& R \& e \& a \& d \& ( \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+      \matrix  {
+ c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& l \& e \&   \& : \&   \& p \& u \& b \& l \& i \& c \&   \& R \& a \& n \& d \& o \& m \& A \& c \& c \& e \& s \& s \& F \& i \& l \& e \&   \& \{ \\
+
+ \&   \& v \& i \& r \& t \& u \& a \& l \&   \& S \& t \& a \& t \& u \& s \&   \& R \& e \& a \& d \& ( \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+
   \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& o \& u \& n \& t \& e \& r \& \_ \& - \& > \& I \& n \& c \& r \& e \& m \& e \& n \& t \& ( \& ) \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+
   \&   \& \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+
 \} \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-  };
+      };
     \end{tikzpicture}
   \end{frame}
 
@@ -547,6 +591,47 @@ c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& 
   \end{frame}
 
   \begin{frame}
+    \frametitle{fish shell Removes \const{} then Writes}
+    \centering
+    \begin{tikzpicture}
+
+      \matrix (wgetopt) {
+|[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& \_ \& w \& g \& e \& t \& o \& p \& t \& \_ \& i \& n \& t \& e \& r \& n \& a \& l \& ( \& \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& c \& o \& n \& s \& t \&   \& * \& a \& r \& g \& v \& , \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{ \\
+  \&   \& e \& x \& c \& h \& a \& n \& g \& e \& ( \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& * \& ) \&   \& a \& r \& g \& v \& ) \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&    \\
+\} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&    \\
+  };
+      \matrix (exchange) [scale=0.5, below=of wgetopt] {
+|[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& e \& x \& c \& h \& a \& n \& g \& e \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& * \& a \& r \& g \& v \& ) \&   \& \{ \\
+
+  \&   \&   \&   \& a \& r \& g \& v \& \lbrack \& b \& o \& t \& t \& o \& m \&   \& + \&   \& i \& \rbrack \&   \& = \& \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+
+  \&   \&   \&   \& a \& r \& g \& v \& \lbrack \& t \& o \& p \&   \& - \&   \& ( \& m \& i \& d \& d \& l \& e \&   \& - \&   \& b \& o \& t \& t \& o \& m \& ) \&   \& + \&   \& i \& \rbrack \&   \& = \& \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+
+  \&   \&   \&   \& a \& r \& g \& v \& \lbrack \& b \& o \& t \& t \& o \& m \&   \& + \&   \& i \& \rbrack \&   \& = \&   \&  |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+
+  \&   \&   \&   \& a \& r \& g \& v \& \lbrack \& m \& i \& d \& d \& l \& e \&   \& + \&   \& i \& \rbrack \&   \& = \&   \&  |[black!50]|.\& |[black!50]|. \& |[black!50]|. \& ;   \\
+
+        \} \\
+      };
+
+      \draw [arrow] (wgetopt) -- node [right, xshift=1mm] {\normalsize Call} (exchange);
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Mosh Writes Directly Through \const{}}
+    \centering
+    \large
+    \begin{tikzpicture}
+      \matrix  {
+v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& c \& o \& n \& s \& t \&   \& P \& a \& r \& s \& e \& r \& : \& : \& P \& r \& i \& n \& t \&   \& * \& a \& c \& t \& ) \&   \& \{ \\
+  \&   \& a \& c \& t \& - \& > \& h \& a \& n \& d \& l \& e \& d \&   \& = \&   \& t \& r \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+\} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+      };
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Summary}
     \Large
     There are legitimate reasons for \texttt{mutable}
@@ -565,12 +650,9 @@ c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& 
       \includegraphics[scale=0.1]{aec-badge-ecoop}
 
       \vspace{0.25em}
-      \texttt{\huge https://github.com/eyolfson}
-      \texttt{https://github.com/eyolfson/research-2016-ecoop-artifact}
-      \texttt{https://github.com/eyolfson/research-2016-ecoop-paper}
-
-      \vspace{2em}
-      \texttt{\huge https://eyl.io/research}
+      \texttt{\huge https://github.com/eyolfson/}
+      \texttt{https://github.com/eyolfson/research-2016-ecoop-artifact/}
+      \texttt{https://github.com/eyolfson/research-2016-ecoop-paper/}
     \end{center}
 
   \end{frame}
