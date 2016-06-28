@@ -353,11 +353,11 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
 
       \matrix (first) [node distance=16mm, below=of unrelated, minimum width=40mm] {
         \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& \& C
-        \&  \& c \& ; \\
+        \& \& * \&  \& c \& \& = \& \& |[black!50]|. \&  |[black!50]|. \&  |[black!50]|. \& ; \\
 
         \& u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
 
-        \& c \& . \& u \& n \& r \& e \& l \& a \& t \& e \& d \& ( \& ) \& ; \& \& \& \& \& \& \& \& \\
+        \& c \& - \& > \& u \& n \& r \& e \& l \& a \& t \& e \& d \& ( \& ) \& ; \& \& \& \& \& \& \& \& \\
 
         \& u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
       };
@@ -477,36 +477,15 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
   % In the case where developer intent is a maybe, we assume they did NOT mean const
 
   \begin{frame}
-    \frametitle{Instrumentation Adds Shadow Values for Variables}
+    \frametitle{Our Instrumentation Tracks \const{}-ness of Variables}
     \Large
-    Shadow value encode \const{} qualifiers based on type \texttt{T}
+    Every variable and location has a ``shadow value''
 
-    \centering
-    \vspace{2em}
-    \begin{tikzpicture}[->,>=stealth',shorten >=0.5mm,node distance=2cm]
+    \vspace{1em}
+    A shadow value is either \texttt{0} (non-\const{}) or \texttt{1} (\const{})
 
-    \draw [decorate,decoration={brace,amplitude=3mm},-,xshift=0pt,yshift=0pt]
-          (-0.7,0.3) -- (8.5,0.3)node [black,midway,yshift=0.6cm]
-          {\textit{Shadow Value}};
-    \node (b1) {$b_{n+1}$};
-    \node [right of=b1] (b2) {$b_n$};
-    \node [right of=b2] (b3) {$b_{n-1}$};
-    \node [right of=b3] (b4) {...};
-    \node [right of=b4] (b5) {$b_0$};
-    \node [below of=b1, node distance=1cm] (b1t)
-          {Is \texttt{T} \const{}?};
-    \node [below of=b2] (b2t)
-          {Is \texttt{T*} \const{}?};
-    \node [below of=b3, node distance=1cm] (b3t)
-          {Is \texttt{T**} \const{}?};
-    \node [below of=b5, node distance=1cm] (b5t)
-          {Is \texttt{T$(\texttt{*})^n$} \const{}?};
-
-    \path (b1t) edge (b1)
-          (b2t) edge (b2)
-          (b3t) edge (b3)
-          (b5t) edge (b5);
-    \end{tikzpicture}
+    \vspace{1em}
+    Our analysis propagates \const{} transitively and cannot be removed
   \end{frame}
 
   \begin{frame}
@@ -515,43 +494,43 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \matrix (defn) at ($ (current page.center) - (20mm, 10mm) $) {
+      \matrix (defn) at ($ (current page.center) - (27mm, 10mm) $) {
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
 
-  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \& ) \&   \& \{  \\
+  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \& ) \&   \& \{  \\
 
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
         \& \& \} \\
 
-  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \& ; \\
+  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \& ; \\
 
         \} \\
       };
 
       \matrix (call) [above=of defn] {
         |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& \& C
-        \&  \& c \& ; \\
+        \& \& * \& \& c \& \& = \& \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
-        c \& . \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& ; \\
+        c \& - \& > \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& ; \\
       };
 
       \draw [arrow] (call) -- node [right, xshift=1mm] {\normalsize Call} (defn);
 
       \node (sv2) [right=of defn.north east, anchor=north west] {\texttt{this}:};
-      \node [fill=yellow!50, node distance=1mm, right=of sv2] {\texttt{1X}};
+      \node [fill=yellow!50, node distance=1mm, right=of sv2] {\texttt{1}};
 
       \node (sv1) [node distance=15mm, above=of sv2.west, anchor=west] {\texttt{c}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv1] {\texttt{1}};
 
       \draw [arrow] (sv1) -- node [scale=0.7, right, align=left, xshift=3mm] {Passed through\\thread local storage} (sv2);
 
-      \node [below=of sv2] (sv3) {$f_0$:};
+      \node [below=of sv2] (sv3) {\texttt{value}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv3] {\texttt{1}};
 
-      \node [right=of sv3] (sv4) {$f_1$:};
+      \node [right=of sv3] (sv4) {\texttt{valid}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv4] {\texttt{1}};
 
       \draw [arrow] (sv2) -- (sv3);
@@ -560,47 +539,72 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{We Cannot Use \const{} Qualifiers on Method Declarations}
+    \frametitle{Our Analysis Reports Both Caching Writes}
+    \Large
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix at (current page.center) {
+        |[red]|C \& |[red]|o \& |[red]|n \& |[red]|s \& |[red]|t \& |[red]|S \& |[red]|a \& |[red]|n \& |[red]|i \& |[red]|t \& |[red]|i \& |[red]|z \& |[red]|e \& |[red]|r \& |[red]|: \& \& |[red]| m \& |[red]|o \& |[red]|d \& |[red]|i \& |[red]|f \& |[red]|i \& |[red]|c \& |[red]|a \& |[red]|t \& |[red]|i \& |[red]|o \& |[red]|n \& |[red]|- \& |[red]|o \& |[red]|f \& |[red]|- \& |[red]|c \& |[red]|o \& |[red]|n \& |[red]|s \& |[red]|t \& |[red]|- \& |[red]|v \& |[red]|a \& |[red]|l \& |[red]|u \& |[red]|e \\
+
+\& \& \# \& 0 \& \& i \& n \& \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& \& c \& o \& n \& s \& t \& \& C \& . \& c \& p \& p \& : \& 3 \\
+
+\& \& \# \& 1 \& \& i \& n \& \& m \& a \& i \& n \\
+
+        \\
+
+        \\
+        |[red]|C \& |[red]|o \& |[red]|n \& |[red]|s \& |[red]|t \& |[red]|S \& |[red]|a \& |[red]|n \& |[red]|i \& |[red]|t \& |[red]|i \& |[red]|z \& |[red]|e \& |[red]|r \& |[red]|: \& \& |[red]| m \& |[red]|o \& |[red]|d \& |[red]|i \& |[red]|f \& |[red]|i \& |[red]|c \& |[red]|a \& |[red]|t \& |[red]|i \& |[red]|o \& |[red]|n \& |[red]|- \& |[red]|o \& |[red]|f \& |[red]|- \& |[red]|c \& |[red]|o \& |[red]|n \& |[red]|s \& |[red]|t \& |[red]|- \& |[red]|v \& |[red]|a \& |[red]|l \& |[red]|u \& |[red]|e \\
+
+\& \& \# \& 0 \& \& i \& n \& \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& \& c \& o \& n \& s \& t \& \& C \& . \& c \& p \& p \& : \& 4 \\
+
+\& \& \# \& 1 \& \& i \& n \& \& m \& a \& i \& n \\
+      };
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{For Objects We Use the \const{}-ness of Caller}
     \large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \matrix (defn) at ($ (current page.center) - (20mm, 10mm) $) {
+      \matrix (defn) at ($ (current page.center) - (27mm, 10mm) $) {
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
 
-  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \& ) \&   \& \{  \\
+  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \& ) \&   \& \{  \\
 
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& i \& s \& \_ \& c \& a \& c \& h \& e \& \_ \& v \& a \& l \& i \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
         \& \& \} \\
 
-  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& \_ \& v \& a \& l \& u \& e \& ; \\
+  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \& ; \\
 
         \} \\
       };
 
       \matrix (call) [above=of defn] {
-        C \&  \& c \& ; \\
+        C \& \& * \& \& c \& \& = \& \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
-        c \& . \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& ; \\
+        c \& - \& > \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& ; \\
       };
 
       \draw [arrow] (call) -- node [right, xshift=1mm] {\normalsize Call} (defn);
 
       \node (sv2) [right=of defn.north east, anchor=north west] {\texttt{this}:};
-      \node [fill=yellow!50, node distance=1mm, right=of sv2] {\texttt{0X}};
+      \node [fill=yellow!50, node distance=1mm, right=of sv2] {\texttt{0}};
 
       \node (sv1) [node distance=15mm, above=of sv2.west, anchor=west] {\texttt{c}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv1] {\texttt{0}};
 
       \draw [arrow] (sv1) -- node [scale=0.7, right, align=left, xshift=3mm] {Passed through\\thread local storage} (sv2);
 
-      \node [below=of sv2] (sv3) {$f_0$:};
+      \node [below=of sv2] (sv3) {\texttt{value}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv3] {\texttt{0}};
 
-      \node [right=of sv3] (sv4) {$f_1$:};
+      \node [right=of sv3] (sv4) {\texttt{valid}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv4] {\texttt{0}};
 
       \draw [arrow] (sv2) -- (sv3);
@@ -609,7 +613,7 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{Reasons for Writes Through Immutable Declarations}
+    \frametitle{Valid Reasons for Logically Immutable}
     \Large
     \begin{itemize}
       \setlength\itemsep{0.5em}
