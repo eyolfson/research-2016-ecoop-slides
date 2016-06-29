@@ -27,9 +27,9 @@
 }
 
 \usepackage{fontspec}
-\setmainfont[Ligatures=TeX]{Tinos}
-\setsansfont{Arimo}[Scale=MatchLowercase]
-\setmonofont{Cousine}[Scale=MatchLowercase]
+\setmainfont[Ligatures=TeX]{DejaVu Serif}
+\setsansfont{DejaVu Sans}[Scale=MatchLowercase]
+\setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
 
 \usepackage{tikz}
 \usetikzlibrary{arrows}
@@ -97,6 +97,80 @@
   \end{frame}
 
   \setcounter{framenumber}{0}
+
+\begin{frame}
+\Huge
+😀
+😁
+😂
+😃
+😄
+😅
+😆
+😇
+😈
+😉
+😊
+😋
+😌
+😍
+😎
+😏
+😐
+😑
+😒
+😓
+😔
+😕
+😖
+😗
+😘
+😙
+😚
+😛
+😜
+😝
+😞
+😟
+😠
+😡
+😢
+😣
+😤
+😥
+😦
+😧
+😨
+😩
+😪
+😫
+😬
+😭
+😮
+😯
+😰
+😱
+😲
+😳
+😴
+😵
+😶
+😷
+\end{frame}
+
+  \begin{frame}
+
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node [scale=4] at (\paperwidth * 2 / 8, \paperheight / 6) {😀};
+      \node [scale=4] at (\paperwidth * 3 / 8, \paperheight / 6) {😀};
+      \node [scale=4] at (\paperwidth * 4 / 8, \paperheight / 6) {😀};
+      \node [scale=4] at (\paperwidth * 5 / 8, \paperheight / 6) {😀};
+      \node [scale=4] at (\paperwidth * 6 / 8, \paperheight / 6) {😀};
+    \end{tikzpicture}
+  
+  \end{frame}
 
   \begin{frame}
     \frametitle{Immutability}
@@ -573,55 +647,8 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
 \& \& \# \& 1 \& \& i \& n \& \& m \& a \& i \& n \\
       };
     \end{tikzpicture}
-  \end{frame}
 
-  \begin{frame}
-    \frametitle{For Objects We Use the \const{}-ness of Caller}
-    \large
-    \begin{tikzpicture}[remember picture,
-                        overlay,
-                        shift={(current page.south west)}]
-      \matrix (defn) at ($ (current page.center) - (27mm, 10mm) $) {
-        i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
-
-  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \& ) \&   \& \{  \\
-
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
-
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
-
-        \& \& \} \\
-
-  \&   \& r \& e \& t \& u \& r \& n \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \& ; \\
-
-        \} \\
-      };
-
-      \matrix (call) [above=of defn] {
-        C \& \& * \& \& c \& \& = \& \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
-
-        c \& - \& > \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& ; \\
-      };
-
-      \draw [arrow] (call) -- node [right, xshift=1mm] {\normalsize Call} (defn);
-
-      \node (sv2) [right=of defn.north east, anchor=north west] {\texttt{this}:};
-      \node [fill=yellow!50, node distance=1mm, right=of sv2] {\texttt{0}};
-
-      \node (sv1) [node distance=15mm, above=of sv2.west, anchor=west] {\texttt{c}:};
-      \node [fill=yellow!50, node distance=1mm, right=of sv1] {\texttt{0}};
-
-      \draw [arrow] (sv1) -- node [scale=0.7, right, align=left, xshift=3mm] {Passed through\\thread local storage} (sv2);
-
-      \node [below=of sv2] (sv3) {\texttt{value}:};
-      \node [fill=yellow!50, node distance=1mm, right=of sv3] {\texttt{0}};
-
-      \node [right=of sv3] (sv4) {\texttt{valid}:};
-      \node [fill=yellow!50, node distance=1mm, right=of sv4] {\texttt{0}};
-
-      \draw [arrow] (sv2) -- (sv3);
-      \draw [arrow] (sv2) -- node [scale=0.7, right, xshift=3mm] {\normalsize Computed} (sv4);
-    \end{tikzpicture}
+Show sources
   \end{frame}
 
   \begin{frame}
@@ -651,13 +678,15 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
       & \textbf{LoC} \\
 
       Protobuf & 214 k\\
-      LevelDB & 18 k \\
-      fish shell & 48 k \\
-      Mosh (mobile shell) & 13 k \\
-      LLVM TableGen & 34 k \\
       Tesseract & 147 k \\
+      fish shell & 48 k \\
+      LLVM TableGen & 34 k \\
+      LevelDB & 18 k \\
       Ninja & 15 k \\
+      Mosh (mobile shell) & 13 k \\
     \end{tabular}
+
+    Top GitHub projets
   \end{frame}
 
   \begin{frame}
@@ -671,6 +700,8 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
 
     \vspace{1em}
     Archetype is a root cause and attributes
+
+REMOVE ARCHETYPE
   \end{frame}
 
   \begin{frame}
