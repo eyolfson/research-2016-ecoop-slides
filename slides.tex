@@ -161,10 +161,10 @@
   \begin{frame}
     \frametitle{Two ``Changes'' of Immutability}
     \Large
-    Bitwise: no writes
+    Bitwise: no writes to object
  
     \vspace{1em}
-    Logically: no observable changes
+    Logically: no observable changes to object
   \end{frame}
 
   \begin{frame}
@@ -376,7 +376,7 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{C++ Does Not Prevent Deep Bitwise Immutability}
+    \frametitle{C++ Does Not Enforce Deep Bitwise Immutability}
     \large
     \centering
     \begin{tikzpicture}[remember picture,
@@ -613,7 +613,7 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{Valid Reasons for Logically Immutable}
+    \frametitle{Initial Reasons for Logically Immutable}
     \Large
     \begin{itemize}
       \setlength\itemsep{0.5em}
@@ -654,24 +654,26 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
     Compiled projects with ConstSaniziter and ran tests (or executable)
 
     \vspace{1em}
-    Grouped similar static locations into archetypes
+    Grouped similar static locations and classify to archetype
+    \\(e.g. cache writes in example are grouped)
 
     \vspace{1em}
-    Each archetype has a root cause and previous attributes
+    Archetype is a root cause and attributes
   \end{frame}
 
   \begin{frame}
     \frametitle{Protobuf's Unique Archetypes}
     \Large
-    \begin{tabular}{p{2.65cm} p{4cm} c c}
+    \begin{tabular}{p{2.65cm} p{4cm} c r}
       \textbf{Root Cause} & \textbf{Main Attribute}
-      & \textbf{Not visible?} & \textbf{Synchronized?} \\
+      & \textbf{Not visible?} & \textbf{Occurences} \\
 
-      Transitive & Buffer/Cache & Yes & Yes \\
-      \texttt{mutable} & Buffer/Cache &   & Yes \\
-      Transitive & Incorrect &   &   \\
-      \texttt{mutable} & Incorrect &   & Yes \\
-      \texttt{mutable} & Delayed Initialization & Yes & Yes \\
+      Transitive & Buffer/Cache & Yes & 118 464 \\
+      \texttt{mutable} & Buffer/Cache &   & 7 158 \\
+      \texttt{mutable} & Delayed Initialization & Yes & 40 \\
+      & & & \\
+      Transitive & Incorrect &   & 1 898 \\
+      \texttt{mutable} & Incorrect &   & 84 \\
       & & & \\
     \end{tabular}
   \end{frame}
@@ -695,16 +697,17 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \begin{frame}
     \frametitle{LevelDB's Unique Archetypes}
     \Large
-    \begin{tabular}{p{2.65cm} p{4cm} c c}
+    \begin{tabular}{p{2.65cm} p{4cm} c r}
       \textbf{Root Cause} & \textbf{Main Attribute}
-      & \textbf{Not visible?} & \textbf{Synchronized?} \\
+      & \textbf{Not visible?} & \textbf{Occurences} \\
 
-      Transitive & Unit Testing & Yes & Yes \\
-      Transitive & Buffer/Cache &   & Yes \\
-      Transitive & Incorrect &   &   \\
-      Transitive & Incorrect &   &   \\
-      Transitive & Incorrect &   & Yes \\
-      Transitive & Unit Testing & Yes &   \\
+      Transitive & Unit Testing & Yes & 10 311\\
+      Transitive & Buffer/Cache & & 2 841 \\
+      Transitive & Unit Testing & Yes & 1 \\
+      & & & \\
+      Transitive & Incorrect & & 319 \\
+      Transitive & Incorrect & & 319 \\
+      Transitive & Incorrect & & 1 \\
     \end{tabular}
   \end{frame}
 
@@ -730,16 +733,17 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \begin{frame}
     \frametitle{Unique Archetypes from All Other Projects}
     \Large
-    \begin{tabular}{p{2.65cm} p{4cm} c c}
-      \textbf{Root Cause} & \textbf{Main Attribute}
-      & \textbf{Not visible?} & \textbf{Synchronized?} \\
+    \begin{tabular}{l p{2.65cm} p{4cm} c}
+      \textbf{Project} & \textbf{Root Cause}
+      & \textbf{Main Attribute} & \textbf{Not visible?} \\
 
-      \texttt{const\_cast} & Incorrect &   &   \\
-      \texttt{mutable} & Incorrect &   &   \\
-      \texttt{mutable} & Incorrect &   &   \\
-      \texttt{mutable} & Buffer/Cache & Yes &   \\
-      \texttt{mutable} & Incorrect &   &   \\
-      \texttt{mutable} & Unit Testing & Yes &   \\
+      LLVM TableGen & \texttt{mutable} & Buffer/Cache & Yes \\
+      Ninja & \texttt{mutable} & Unit Testing & Yes \\
+      & & & \\
+      fish shell & \texttt{const\_cast} & Incorrect & \\
+      Mosh & \texttt{mutable} & Incorrect & \\
+      LLVM TableGen & \texttt{mutable} & Incorrect & \\
+      Tesseract & \texttt{mutable} & Incorrect & \\
     \end{tabular}
   \end{frame}
 
@@ -789,22 +793,13 @@ v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& 
     \Large
     \begin{enumerate}
       \setlength\itemsep{0.5em}
-      \item Developers routinely write-through-\const{}
-      \item Equally prefer using \texttt{mutable} and transitive
-      \item The majority of the time developers should not write-through-\const{}
+      \item Developers write-through-\const{}
+      \item Shallow and deep bitwise immutability violated equally
+      \item Around half of writes-through-\const{} not logically immutable
+
+            \vspace{1em}
+            They appear to be invalid and fixed by developers
     \end{enumerate}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Summary}
-    \Large
-    Most developers intend to mean deep abstract immutability
-
-    \vspace{1em}
-    There are legitimate reasons for \texttt{mutable}
-
-    \vspace{1em}
-    Currently, most writes-through-\const{} should not happen
   \end{frame}
 
   \begin{frame}
