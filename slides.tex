@@ -159,17 +159,70 @@
 \end{frame}
 
   \begin{frame}
-
+\frametitle{1}
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \node [scale=4] at (\paperwidth * 2 / 8, \paperheight / 6) {😀};
-      \node [scale=4] at (\paperwidth * 3 / 8, \paperheight / 6) {😀};
-      \node [scale=4] at (\paperwidth * 4 / 8, \paperheight / 6) {😀};
-      \node [scale=4] at (\paperwidth * 5 / 8, \paperheight / 6) {😀};
-      \node [scale=4] at (\paperwidth * 6 / 8, \paperheight / 6) {😀};
+      \node [scale=3, anchor=base, draw, rounded corners] at (current page.center) {Immutability};
+
+      \node [scale=4] (p1) at (\paperwidth * 2 / 8, \paperheight / 6) {😀};
+      \node [scale=4] (p2) at (\paperwidth * 3 / 8, \paperheight / 6) {😀};
+      \node [scale=4] (p3) at (\paperwidth * 4 / 8, \paperheight / 6) {😀};
+      \node [scale=4] (p4) at (\paperwidth * 5 / 8, \paperheight / 6) {😀};
+      \node [scale=4] (p5) at (\paperwidth * 6 / 8, \paperheight / 6) {😀};
     \end{tikzpicture}
-  
+  \end{frame}
+
+  \begin{frame}
+\frametitle{2}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node [scale=3, anchor=base, draw, rounded corners] at (\paperwidth / 4, \paperheight / 2) {Shallow};
+
+      \node [scale=3, anchor=base, draw, rounded corners] at (\paperwidth *3 / 4, \paperheight / 2) {Deep};
+
+      \node [scale=4] (p1) at (\paperwidth * 0.109375, \paperheight / 6) {😀};
+      \node [scale=4] (p2) at (\paperwidth * 0.234375, \paperheight / 6) {😀};
+      \node [scale=4] (p3) at (\paperwidth * 4 / 8, \paperheight / 6) {😶};
+      \node [scale=4] (p4) at (\paperwidth * 6 / 8, \paperheight / 6) {😞};
+      \node [scale=4] (p5) at (\paperwidth * 7 / 8, \paperheight / 6) {😞};
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
+\frametitle{3}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+
+      \node [scale=2, anchor=base, draw, align=center, rounded corners] at (\paperwidth / 8, \paperheight / 2) {Shallow\\Bitwise};
+      \node [scale=2, anchor=base, draw, align=center, rounded corners] at (\paperwidth * 3/ 8, \paperheight * 3 / 8) {Shallow\\Logical};
+      \node [scale=2, anchor=base, draw, align=center, rounded corners] at (\paperwidth * 5 / 8, \paperheight / 2) {Deep\\Bitwise};
+      \node [scale=2, anchor=base, draw, align=center, rounded corners] at (\paperwidth * 7 / 8, \paperheight * 3 / 8) {Deep\\Logical};
+
+      \node [scale=4] (p1) at (\paperwidth * 1 / 16, \paperheight / 6) {😀};
+      \node [scale=4] (p2) at (\paperwidth * 0.28125, \paperheight / 6) {😀};
+      \node [scale=4] (p3) at (\paperwidth * 4 / 8, \paperheight / 6) {😶};
+      \node [scale=4] (p4) at (\paperwidth * 0.71875, \paperheight / 6) {😀};
+      \node [scale=4] (p5) at (\paperwidth * 15 / 16, \paperheight / 6) {😀};
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
+\frametitle{4}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+
+      \node [scale=3, anchor=base, draw, align=center, rounded corners] at (\paperwidth / 2, \paperheight / 2) {Just A Little\\Change Here};
+
+      \node [scale=4] (p1) at (\paperwidth * 1 / 16, \paperheight / 6) {😱};
+      \node [scale=4] (p2) at (\paperwidth * 0.28125, \paperheight / 6) {😱};
+      \node [scale=4] (p3) at (\paperwidth * 4 / 8, \paperheight / 6) {😂};
+      \node [scale=4] (p4) at (\paperwidth * 0.71875, \paperheight / 6) {😱};
+      \node [scale=4] (p5) at (\paperwidth * 15 / 16, \paperheight / 6) {😱};
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
