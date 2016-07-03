@@ -465,10 +465,13 @@
   \end{frame}
 
   \begin{frame}
+    \Large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \node [circle] at (\paperwidth / 3, \paperheight / 2) {Some};
+\draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}]{} circle (25mm);
+\draw (\paperwidth / 3, \paperheight / 2) node {Logical} circle (12.5mm);
+\draw[label distance=20mm] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}]{Bitwise} circle (25mm);
     \end{tikzpicture}
   \end{frame}
 
