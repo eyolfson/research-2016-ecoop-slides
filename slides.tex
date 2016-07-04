@@ -436,8 +436,8 @@
         c \& l \& a \& s \&s \& \& C \& \& \{ \& \& m \& u \& t \& a \& b \& l \& e \& \& i \& n \& t \& \& v \& a
         \& l \& u \& e \& ; \\
 
-        \& \& \& \& \& \& \& \& \& \& b \& o \& o \& l \& \& v \& a
-        \& l \& i \& d \& ; \& \& \} \& ; \\
+        \& \& \& \& \& \& \& \& \& \& b \& o \& o \& l \& \& c \& a
+        \& c \& h \& e \& d \& ; \& \& \} \& ; \\
 
         \\
 
@@ -450,8 +450,8 @@
         \& \& t \& h \& i \& s \& - \& > \& v \& a \& l \& u \& e \& \& = \&
         \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
-        \& \& t \& h \& i \& s \& - \& > \& v \& a \& l \& i \& d \& \& = \&
-        \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+        \& \& t \& h \& i \& s \& - \& > \& c \& a \& c \& h \& e \& d \& \& =
+        \& \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
         \} \\
       };
@@ -465,11 +465,12 @@
   \end{frame}
 
   \begin{frame}
+    \frametitle{We Observe Writes-Through-\const{}}
     \Large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-\draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}]{} circle (25mm);
+\draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}, label=below:\textit{Our observations}]{} circle (25mm);
 \draw (\paperwidth / 3, \paperheight / 2) node {Logical} circle (12.5mm);
 \draw[label distance=20mm] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}]{Bitwise} circle (25mm);
     \end{tikzpicture}
@@ -493,18 +494,18 @@
         c \& l \& a \& s \&s \& \& C \& \& \{ \& \& m \& u \& t \& a \& b \& l \& e \& \& i \& n \& t \& \& v \& a
         \& l \& u \& e \& ; \\
 
-        \& \& \& \& \& \& \& \& \& \& m \& u \& t \& a \& b \& l \& e \& \& b \& o \& o \& l \& \& v \& a
-        \& l \& i \& d \& ; \& \& \} \& ; \\
+        \& \& \& \& \& \& \& \& \& \& m \& u \& t \& a \& b \& l \& e \& \& b \& o \& o \& l \& \& c \& a
+        \& c \& h \& e \& d \& ; \& \& \} \& ; \\
 
         \\
 
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
 
-  \&   \& i \& f \&   \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \& ) \&   \& \{ \\
+  \&   \& i \& f \&   \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& ) \&   \& \{ \\
 
   \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \&   \& = \&   \& l \& o \& n \& g \& C \& a \& l \& c \& u \& l \& a \& t \& i \& o \& n \& ( \& ) \& ; \\
 
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \&   \& = \&   \& t \& r \& u \& e \& ; \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \&   \& = \&   \& t \& r \& u \& e \& ; \\
 
       \&   \& \} \\
 
@@ -577,18 +578,18 @@
         c \& l \& a \& s \&s \& \& C \& \& \{ \& \& i \& n \& t \& \& * \& \& v \& a
         \& l \& u \& e \& ; \\
 
-        \& \& \& \& \& \& \& \& \& \& b \& o \& o \& l \& \& * \& \& v \& a
-        \& l \& i \& d \& ; \& \& \} \& ; \\
+        \& \& \& \& \& \& \& \& \& \& b \& o \& o \& l \& \& * \& \& c \& a
+        \& c \& h \& e \& d \& ; \& \& \} \& ; \\
 
         \\
 
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
 
-  \&   \& i \& f \&   \& ( \& ! \& * \& ( \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \& ) \& ) \&   \& \{ \\
+  \&   \& i \& f \&   \& ( \& ! \& * \& ( \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& ) \& ) \&   \& \{ \\
 
   \&   \&   \&   \& * \& ( \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \& ) \& \& = \&   \& l \& o \& n \& g \& C \& a \& l \& c \& u \& l \& a \& t \& i \& o \& n \& ( \& ) \& ; \\
 
-  \&   \&   \&   \& * \& ( \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \& ) \& \& = \&   \& t \& r \& u \& e \& ; \\
+  \&   \&   \&   \& * \& ( \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& ) \& \& = \&   \& t \& r \& u \& e \& ; \\
 
       \&   \& \} \\
 
@@ -679,6 +680,7 @@
     \frametitle{Incorrect \const{} Methods Lead to Issues}
     \large
     \centering
+Allowed by compiler since value is mutable
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)},
@@ -692,6 +694,7 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
 
         \} \\
       };
+
 
       \matrix (first) [node distance=16mm, below=of unrelated, minimum width=40mm] {
         \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& \& C
@@ -810,11 +813,11 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
       \matrix (defn) at ($ (current page.center) - (27mm, 10mm) $) {
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
 
-  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \& ) \&   \& \{  \\
+  \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& ) \&   \& \{  \\
 
   \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& i \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
         \& \& \} \\
 
@@ -858,9 +861,14 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
                         overlay,
                         shift={(current page.south west)}]
       \matrix at (current page.center) {
-        |[red]|C \& |[red]|o \& |[red]|n \& |[red]|s \& |[red]|t \& |[red]|S \& |[red]|a \& |[red]|n \& |[red]|i \& |[red]|t \& |[red]|i \& |[red]|z \& |[red]|e \& |[red]|r \& |[red]|: \& \& |[red]| m \& |[red]|o \& |[red]|d \& |[red]|i \& |[red]|f \& |[red]|i \& |[red]|c \& |[red]|a \& |[red]|t \& |[red]|i \& |[red]|o \& |[red]|n \& |[red]|- \& |[red]|o \& |[red]|f \& |[red]|- \& |[red]|c \& |[red]|o \& |[red]|n \& |[red]|s \& |[red]|t \& |[red]|- \& |[red]|v \& |[red]|a \& |[red]|l \& |[red]|u \& |[red]|e \\
+        |[red]|C \& |[red]|o \& |[red]|n \& |[red]|s \& |[red]|t \& |[red]|S
+        \& |[red]|a \& |[red]|n \& |[red]|i \& |[red]|t \& |[red]|i \& |[red]|z
+        \& |[red]|e \& |[red]|r \& |[red]|: \& \& |[red]| m \& |[red]|o
+\& |[red]|d \& |[red]|i \& |[red]|f \& |[red]|i \& |[red]|c \& |[red]|a \& |[red]|t \& |[red]|i \& |[red]|o \& |[red]|n \& |[red]|- \& |[red]|o \& |[red]|f \& |[red]|- \& |[red]|c \& |[red]|o \& |[red]|n \& |[red]|s \& |[red]|t \& |[red]|- \& |[red]|v \& |[red]|a \& |[red]|l \& |[red]|u \& |[red]|e \\
 
 \& \& \# \& 0 \& \& i \& n \& \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& \& c \& o \& n \& s \& t \& \& C \& . \& c \& p \& p \& : \& 3 \\
+
+ \& \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& v \& a \& l \& u \& e \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
 
 \& \& \# \& 1 \& \& i \& n \& \& m \& a \& i \& n \\
 
@@ -871,11 +879,11 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
 
 \& \& \# \& 0 \& \& i \& n \& \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \& \& c \& o \& n \& s \& t \& \& C \& . \& c \& p \& p \& : \& 4 \\
 
+\&  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+
 \& \& \# \& 1 \& \& i \& n \& \& m \& a \& i \& n \\
       };
     \end{tikzpicture}
-
-Show sources
   \end{frame}
 
   \begin{frame}
@@ -967,9 +975,9 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \begin{frame}
     \frametitle{LevelDB's Unique Archetypes}
     \Large
-    \begin{tabular}{p{2.65cm} p{4cm} c r}
+    \begin{tabular}{p{2.65cm} p{4cm} c p{4cm}}
       \textbf{Root Cause} & \textbf{Main Attribute}
-      & \textbf{Not visible?} & \textbf{Occurences} \\
+      & \textbf{Not visible?} & \textbf{Dynamic Occurences} \\
 
       Transitive & Unit Testing & Yes & 10 311\\
       Transitive & Buffer/Cache & & 2 841 \\
@@ -1083,6 +1091,6 @@ v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& 
       \texttt{https://github.com/eyolfson/research-2016-ecoop-artifact/}
       \texttt{https://github.com/eyolfson/research-2016-ecoop-paper/}
     \end{center}
-
+    Thanks to Derek Rayside
   \end{frame}
 \end{document}
