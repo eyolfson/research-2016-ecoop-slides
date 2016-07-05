@@ -158,21 +158,6 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Calling a \const{} Method Does Not Change the Object}
-    \large
-    \centering
-    \begin{tikzpicture}[remember picture,
-                        overlay,
-                        shift={(current page.south west)}]
-      \matrix (decl) at ($ (current page.center) + (0, 25mm) $) {
-        i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
-        e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \&
-        |[blue]|t \& ; \\
-      };
-    \end{tikzpicture}
-  \end{frame}
-
-  \begin{frame}
     \frametitle{To What Extent Do ``Things'' Not Change?}
     \begin{tikzpicture}[remember picture,
                         overlay,
@@ -385,7 +370,7 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Bitwise Immutably Only Reads}
+    \frametitle{Bitwise Immutability Only Reads}
     \centering
     \large
     \begin{tikzpicture}[remember picture,
@@ -401,6 +386,13 @@
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
   };
     \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Logical Immutability Has Writes}
+    \centering
+    \Large
+    Only promises no observable changes
   \end{frame}
 
   \begin{frame}
@@ -622,6 +614,18 @@ Writes allowed by compiler without \texttt{mutable}
   \end{frame}
 
   \begin{frame}
+    \frametitle{We Observe Deep Immutability}
+    \Large
+    We want to observe the previous case
+
+    \vspace{1.5em}
+    Fields being values or references doesn't matter
+
+    \vspace{1.5em}
+    Deep immutability is more restrictive, we observe more
+  \end{frame}
+
+  \begin{frame}
     \frametitle{The Story}
     \begin{tikzpicture}[remember picture,
                         overlay,
@@ -661,43 +665,8 @@ Writes allowed by compiler without \texttt{mutable}
     \end{tikzpicture}
   \end{frame}
 
-%  \begin{frame}
-%\frametitle{3}
-%    \begin{tikzpicture}[remember picture,
-%                        overlay,
-%                        shift={(current page.south west)}]
-%
-%      \node [scale=2, anchor=base, draw, align=center, rounded corners] at (\paperwidth / 8, \paperheight / 2) {Shallow\\Bitwise};
-%      \node [scale=2, anchor=base, draw, align=center, rounded corners] at (\paperwidth * 3/ 8, \paperheight * 3 / 8) {Shallow\\Logical};
-%      \node [scale=2, anchor=base, draw, align=center, rounded corners] at (\paperwidth * 5 / 8, \paperheight / 2) {Deep\\Bitwise};
-%      \node [scale=2, anchor=base, draw, align=center, rounded corners] at (\paperwidth * 7 / 8, \paperheight * 3 / 8) {Deep\\Logical};
-%
-%      \node [scale=4] (p1) at (\paperwidth * 1 / 16, \paperheight / 6) {😀};
-%      \node [scale=4] (p2) at (\paperwidth * 0.28125, \paperheight / 6) {😀};
-%      \node [scale=4] (p3) at (\paperwidth * 4 / 8, \paperheight / 6) {😶};
-%      \node [scale=4] (p4) at (\paperwidth * 0.71875, \paperheight / 6) {😀};
-%      \node [scale=4] (p5) at (\paperwidth * 15 / 16, \paperheight / 6) {😀};
-%    \end{tikzpicture}
-%  \end{frame}
-%
-%  \begin{frame}
-%\frametitle{4}
-%    \begin{tikzpicture}[remember picture,
-%                        overlay,
-%                        shift={(current page.south west)}]
-%
-%      \node [scale=3, anchor=base, draw, align=center, rounded corners] at (\paperwidth / 2, \paperheight / 2) {Just A Little\\Change Here};
-%
-%      \node [scale=4] (p1) at (\paperwidth * 1 / 16, \paperheight / 6) {😱};
-%      \node [scale=4] (p2) at (\paperwidth * 0.28125, \paperheight / 6) {😱};
-%      \node [scale=4] (p3) at (\paperwidth * 4 / 8, \paperheight / 6) {😂};
-%      \node [scale=4] (p4) at (\paperwidth * 0.71875, \paperheight / 6) {😱};
-%      \node [scale=4] (p5) at (\paperwidth * 15 / 16, \paperheight / 6) {😱};
-%    \end{tikzpicture}
-%  \end{frame}
-
   \begin{frame}
-    \frametitle{Incorrect \const{} Methods Lead to Issues}
+    \frametitle{Incorrect \const{} Methods Are Confusing}
     \large
     \centering
     \begin{tikzpicture}[remember picture,
@@ -715,7 +684,7 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
       };
 
       \node [node distance=4mm, fill=yellow!50, below=of unrelated] {
-Write allowed by compiler now, definite usability difference
+Write allowed by compiler, but usability difference
       };
 
       \matrix (first) [node distance=24mm, below=of unrelated, minimum width=40mm] {
@@ -752,12 +721,12 @@ Write allowed by compiler now, definite usability difference
   \end{frame}
 
   \begin{frame}
-    \frametitle{There's One More Way to Remove \const{}}
+    \frametitle{\texttt{const\_cast} Can Remove \const{} Anywhere}
     \Large
-    Developers can use \texttt{const\_cast} to remove \const{}
+    A third way to write through a field in \const{} method
 
     \vspace{1.5em}
-    Can occur at any place in the program
+    Can also occur at any location in the program
 
     \vspace{1.5em}
     Intended to work around mis-qualified libraries
@@ -770,8 +739,8 @@ Write allowed by compiler now, definite usability difference
                         overlay,
                         shift={(current page.south west)}]
 \draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}, label=below:\textit{Our observations}]{} circle (25mm);
-\draw (\paperwidth / 3, \paperheight / 2) node {Logical} circle (12.5mm);
-\draw[label distance=20mm] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}]{Bitwise} circle (25mm);
+\draw (\paperwidth / 3, \paperheight / 2) node [align=center] {Deep\\Logical} circle (12.5mm);
+\draw[label distance=16mm] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}, align=center]{Deep\\Bitwise} circle (25mm);
     \end{tikzpicture}
   \end{frame}
 
@@ -782,43 +751,53 @@ Write allowed by compiler now, definite usability difference
     Our analysis applies \const{} through fields transitively
     \\(i.e. deep immutability)
 
-    \vspace{1em}
-    Report any \structure{deep bitwise} immutable violations at runtime
+    \vspace{1.5em}
+    Report any writes through a \const{} reference at runtime
     \\(referred to as writes-through-\const{})
 
-    \vspace{1em}
-    Manually classify writes-through-\const{} as \structure{logically} immutable
+    \vspace{1.5em}
+    Manually classify writes as \structure{logically} immutable
     or not
+    \\(not logically immutable referred to as incorrect)
   \end{frame}
 
   \begin{frame}
-    \Large
-    {\usebeamerfont{title}\usebeamercolor[fg]{title}
-     Research Question 1: Do developers write-though-\const{}?}
+    \structure{\LARGE \bfseries
+       Research Question 1:
 
-    \vspace{1em}
+       Do developers write-though-\const{}?
+    }
+
+    \Large
+    \vspace{1.5em}
     Yes, they do
   \end{frame}
 
   \begin{frame}
-    \Large
-    {\usebeamerfont{title}\usebeamercolor[fg]{title}
-     Research Question 2: How developers write-though-\const{}?}
+    \structure{\LARGE \bfseries
+       Research Question 2:
 
-    \vspace{1em}
+       How do developers write-though-\const{}?
+    }
+
+    \Large
+    \vspace{1.5em}
     Equally shallow (using \texttt{mutable}) and deep (transitively)
   \end{frame}
 
   \begin{frame}
-    \Large
-    {\usebeamerfont{title}\usebeamercolor[fg]{title}
-     Research Question 3: Why do developers write-though-\const{}?}
+    \structure{\LARGE \bfseries
+       Research Question 3:
 
-    \vspace{1em}
+       Why do developers write-though-\const{}?
+    }
+
+    \Large
+    \vspace{1.5em}
     Conventional wisdom: buffering / caching
 
-    \vspace{1em}
-    Found \structure{around half} had observable changes (invalid)
+    \vspace{1.5em}
+    Found \structure{around half} had observable changes (incorrect)
   \end{frame}
 
   \begin{frame}
@@ -826,29 +805,29 @@ Write allowed by compiler now, definite usability difference
     \Large
     ConstSanitizer is our dynamic analysis tool
 
-    \vspace{1em}
+    \vspace{1.5em}
     Adds instrumentation during compilation
 
-    \vspace{1em}
+    \vspace{1.5em}
     Linking includes our runtime library that reports writes
   \end{frame}
 
   % In the case where developer intent is a maybe, we assume they did NOT mean const
 
   \begin{frame}
-    \frametitle{Our Instrumentation Tracks \const{}-ness of Variables}
+    \frametitle{Our Instrumentation Propagates \const{}}
     \Large
-    Every variable and location has a ``shadow value''
+    Every variable has a ``shadow value''
 
-    \vspace{1em}
+    \vspace{1.5em}
     A shadow value is either \texttt{0} (non-\const{}) or \texttt{1} (\const{})
 
-    \vspace{1em}
-    Our analysis propagates \const{} transitively and cannot be removed
+    \vspace{1.5em}
+    Our analysis preserves \const{} transitively
   \end{frame}
 
   \begin{frame}
-    \frametitle{Our Shadow Values Propagate \const{}}
+    \frametitle{Shadow Values for Running Example}
     \large
     \begin{tikzpicture}[remember picture,
                         overlay,
@@ -930,7 +909,7 @@ Write allowed by compiler now, definite usability difference
   \end{frame}
 
   \begin{frame}
-    \frametitle{Initial Reasons for Logically Immutable}
+    \frametitle{Hypothesis for Logically Immutable}
     \Large
     \begin{itemize}
       \setlength\itemsep{0.5em}
@@ -938,14 +917,8 @@ Write allowed by compiler now, definite usability difference
       \item Delayed Initialization
     \end{itemize}
 
-    \vspace{2em}
-    Additionally:
-    \vspace{0.25em}
-    \begin{itemize}
-      \setlength\itemsep{0.5em}
-      \item Not visible (not accessible through public API)
-      \item Synchronization (write while holding lock)
-    \end{itemize}
+    \vspace{1.5em}
+    Additional attributes included in paper
   \end{frame}
 
   \begin{frame}
