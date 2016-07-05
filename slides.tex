@@ -41,6 +41,8 @@
 \usetikzlibrary{scopes}
 \usetikzlibrary{shapes}
 
+\usepackage{array}
+
 \title{C++ const and Immutability: An Empirical Study of
        Writes-Through-const}
 \author{Jon Eyolfson}
@@ -924,7 +926,10 @@ Write allowed by compiler, but usability difference
   \begin{frame}
     \frametitle{We Ran Our Experiments on 7 C++ Projects}
     \Large
+    We selected top C++ projects on GitHub
+
     \centering
+    \vspace{1.5em}
     \begin{tabular}{l r}
       & \textbf{LoC} \\
 
@@ -936,39 +941,35 @@ Write allowed by compiler, but usability difference
       Ninja & 15 k \\
       Mosh (mobile shell) & 13 k \\
     \end{tabular}
-
-    Top GitHub projets
   \end{frame}
 
   \begin{frame}
     \frametitle{We Manually Categorized All Writes-Through-\const{}}
     \Large
-    Compiled projects with ConstSaniziter and ran tests (or executable)
+    Compiled projects with ConstSaniziter and ran tests\\(or executable)
 
-    \vspace{1em}
-    Grouped similar static locations and classify to archetype
+    \vspace{1.5em}
+    Grouped similar static locations and classified
     \\(e.g. cache writes in example are grouped)
 
-    \vspace{1em}
-    Archetype is a root cause and attributes
-
-REMOVE ARCHETYPE
+    \vspace{1.5em}
+    Classification is root cause (how) and attribute (why)
   \end{frame}
 
   \begin{frame}
-    \frametitle{Protobuf's Unique Archetypes}
+    \frametitle{Protobuf's Overall Results}
     \Large
-    \begin{tabular}{p{2.65cm} p{4cm} c r}
-      \textbf{Root Cause} & \textbf{Main Attribute}
-      & \textbf{Not visible?} & \textbf{Occurences} \\
-
-      Transitive & Buffer/Cache & Yes & 118 464 \\
-      \texttt{mutable} & Buffer/Cache &   & 7 158 \\
-      \texttt{mutable} & Delayed Initialization & Yes & 40 \\
-      & & & \\
-      Transitive & Incorrect &   & 1 898 \\
-      \texttt{mutable} & Incorrect &   & 84 \\
-      & & & \\
+    \begin{tabular}{b{4cm} b{5.2cm} b{3.3cm}}
+      \textbf{Root Cause} & \textbf{Attribute}
+      & \textbf{Dynamic \newline Occurences} \\
+      & & \\
+      Transitive       & Buffer / Caching       & \texttt{~~~~118 464} \\
+      \texttt{mutable} & Buffer / Caching       & \texttt{~~~~~~7 158} \\
+      \texttt{mutable} & Delayed Initialization & \texttt{~~~~~~~~~40} \\
+      & & \\
+      Transitive       & Incorrect              & \texttt{~~~~~~1 898} \\
+      \texttt{mutable} & Incorrect              & \texttt{~~~~~~~~~84} \\
+      & & \\
     \end{tabular}
   \end{frame}
 
@@ -978,7 +979,10 @@ REMOVE ARCHETYPE
     \large
     \begin{tikzpicture}
       \matrix {
-i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& t \& o \& r \& P \& r \& o \& t \& o \& : \& : \& B \& y \& t \& e \& S \& i \& z \& e \& ( \& ) \&   \& c \& o \& n \& s \& t \&   \& \{ \\
+i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& t \& o \& r \& P \& r \& o \& t \& o \& : \& : \& B \& y \& t \& e \& S \& i \& z \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
+
+\& \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \\
+
   \&   \& G \& O \& O \& G \& L \& E \& \_ \& S \& A \& F \& E \& \_ \& C \& O \& N \& C \& U \& R \& R \& E \& N \& T \& \_ \& W \& R \& I \& T \& E \& S \& \_ \& B \& E \& G \& I \& N \& ( \& ) \& ; \&   \&   \&   \&   \\
   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& \_ \& c \& a \& c \& h \& e \& d \& \_ \& s \& i \& z \& e \& \_ \&   \& = \&   \& t \& o \& t \& a \& l \& \_ \& s \& i \& z \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
   \&   \& G \& O \& O \& G \& L \& E \& \_ \& S \& A \& F \& E \& \_ \& C \& O \& N \& C \& U \& R \& R \& E \& N \& T \& \_ \& W \& R \& I \& T \& E \& S \& \_ \& E \& N \& D \& ( \& ) \& ; \&   \&   \&   \&   \&   \&   \\
@@ -989,19 +993,19 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{LevelDB's Unique Archetypes}
+    \frametitle{LevelDB's Overall Results}
     \Large
-    \begin{tabular}{p{2.65cm} p{4cm} c p{4cm}}
-      \textbf{Root Cause} & \textbf{Main Attribute}
-      & \textbf{Not visible?} & \textbf{Dynamic Occurences} \\
-
-      Transitive & Unit Testing & Yes & 10 311\\
-      Transitive & Buffer/Cache & & 2 841 \\
-      Transitive & Unit Testing & Yes & 1 \\
-      & & & \\
-      Transitive & Incorrect & & 319 \\
-      Transitive & Incorrect & & 319 \\
-      Transitive & Incorrect & & 1 \\
+    \begin{tabular}{b{4cm} b{5.2cm} b{3.3cm}}
+      \textbf{Root Cause} & \textbf{Attribute}
+      & \textbf{Dynamic \newline Occurences} \\
+      & & \\
+      Transitive & Unit Testing & \texttt{~~~~~10 311} \\
+      Transitive & Buffer / Caching & \texttt{~~~~~~2 841} \\
+      Transitive & Unit Testing & \texttt{~~~~~~~~~~1} \\
+      & & \\
+      Transitive & Incorrect & \texttt{~~~~~~~~319} \\
+      Transitive & Incorrect & \texttt{~~~~~~~~319} \\
+      Transitive & Incorrect & \texttt{~~~~~~~~~~1} \\
     \end{tabular}
   \end{frame}
 
@@ -1025,19 +1029,19 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{Unique Archetypes from All Other Projects}
+    \frametitle{Remaining Project's Overall Results}
     \Large
-    \begin{tabular}{l p{2.65cm} p{4cm} c}
+    \begin{tabular}{b{4cm} b{4cm} b{4cm}}
       \textbf{Project} & \textbf{Root Cause}
-      & \textbf{Main Attribute} & \textbf{Not visible?} \\
-
-      LLVM TableGen & \texttt{mutable} & Buffer/Cache & Yes \\
-      Ninja & \texttt{mutable} & Unit Testing & Yes \\
-      & & & \\
-      fish shell & \texttt{const\_cast} & Incorrect & \\
-      Mosh & \texttt{mutable} & Incorrect & \\
-      LLVM TableGen & \texttt{mutable} & Incorrect & \\
-      Tesseract & \texttt{mutable} & Incorrect & \\
+      & \textbf{Attribute} \\
+      & & \\
+      LLVM TableGen & \texttt{mutable} & Buffer / Caching \\
+      Ninja & \texttt{mutable} & Unit Testing \\
+      & & \\
+      fish shell & \texttt{const\_cast} & Incorrect \\
+      Mosh & \texttt{mutable} & Incorrect \\
+      LLVM TableGen & \texttt{mutable} & Incorrect \\
+      Tesseract & \texttt{mutable} & Incorrect \\
     \end{tabular}
   \end{frame}
 
@@ -1047,7 +1051,7 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
     \begin{tikzpicture}
 
       \matrix (wgetopt) {
-|[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& \_ \& w \& g \& e \& t \& o \& p \& t \& \_ \& i \& n \& t \& e \& r \& n \& a \& l \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& c \& o \& n \& s \& t \&   \& * \& a \& r \& g \& v \& , \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{ \\
+|[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& \_ \& w \& g \& e \& t \& o \& p \& t \& \_ \& i \& n \& t \& e \& r \& n \& a \& l \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& * \& a \& r \& g \& v \& , \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{ \\
   \&   \& e \& x \& c \& h \& a \& n \& g \& e \& ( \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& * \& ) \&   \& a \& r \& g \& v \& ) \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&    \\
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&    \\
   };
@@ -1075,7 +1079,7 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
     \large
     \begin{tikzpicture}
       \matrix  {
-v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& c \& o \& n \& s \& t \&   \& P \& a \& r \& s \& e \& r \& : \& : \& P \& r \& i \& n \& t \&   \& * \& a \& c \& t \& ) \&   \& \{ \\
+v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& P \& a \& r \& s \& e \& r \& : \& : \& P \& r \& i \& n \& t \&   \& * \& a \& c \& t \& ) \&   \& \{ \\
   \&   \& a \& c \& t \& - \& > \& h \& a \& n \& d \& l \& e \& d \&   \& = \&   \& t \& r \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
       };
@@ -1091,8 +1095,8 @@ v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& 
       \item Shallow and deep bitwise immutability violated equally
       \item Around half of writes-through-\const{} not logically immutable
 
-            \vspace{1em}
-            They appear to be invalid and fixed by developers
+            \vspace{1.5em}
+            They appear to be undesirable and fixed by developers
     \end{enumerate}
   \end{frame}
 
