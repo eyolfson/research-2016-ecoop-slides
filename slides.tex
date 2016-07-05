@@ -26,6 +26,7 @@
   \end{tikzpicture}
 }
 
+
 \usepackage{fontspec}
 \setmainfont[Ligatures=TeX]{DejaVu Serif}
 \setsansfont{DejaVu Sans}[Scale=MatchLowercase]
@@ -273,15 +274,28 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{C++ \const{} and Immutability}
+    \frametitle{\const{} Indicates Shallow Immutability}
     \Large
-    C++ has a \const{} type qualifier for developers to specify immutability
+    \const{} is a type qualifier used to specify immutability
 
-    \vspace{1em}
-    Without escape hatches: \structure{shallow bitwise} immutable
+    \vspace{1.5em}
+    In methods, changes cannot happen to fields
 
-    \vspace{1em}
-    With escape hatches: (possibly) \structure{shallow logically} immutable
+    \vspace{1.5em}
+    To references, changes cannot happen with reference
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Running Immutability Example}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix (decl) at (current page.center) {
+        i \& n \& t \&  \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e
+        \& ( \& ) \& \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s
+        \& |[blue]|t \& ; \\
+      };
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
@@ -338,17 +352,18 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{\const{} Without Escape Hatches}
+    \frametitle{Bitwise Means No Writes}
     \Large
-    \structure{Shallow bitwise} immutable
+    \const{} (by default) means \structure{shallow bitwise} immutability
 
-    \vspace{1em}
-    No writes to fields within \const{} qualified methods
+    \vspace{1.5em}
+    \const{} qualified methods contain no writes to fields
 
-    \vspace{1em}
-    \centering
-    \begin{tikzpicture}
-      \matrix (bad) {
+    \vspace{4em}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix (bad) at (\paperwidth / 2, \paperheight / 3) {
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
         e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \&
         |[blue]|t \& \& \{ \\
@@ -359,28 +374,25 @@
 
         \} \\
       };
-      \node [right=of bad.west, inner sep=0, xshift=-6mm, circle, fill=red,
-             scale=0.7]
-            {$\times$};
+      \node (m1) [node distance=4mm, below=of bad.south west, anchor=north west, inner sep=0, text=red] {\bfseries Not allowed by compiler};
+      \node (x) at ($ (bad-2-1.north)!0.5!(bad-2-2.north) $)
+            [inner sep=0, minimum size=6mm, circle, fill=red, scale=0.7]
+            {x};
+      \draw[arrow, shorten <=0, red] let \p1 = (x.west),
+                \p2 = (m1.west)
+            in (\p1) -- ++(-10mm, 0) -- ++(0, \y2 - \y1) -- (\p2);
     \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{Example of Shallow Bitwise Immutable}
+    \frametitle{Bitwise Immutably Only Reads}
     \centering
     \large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
 
-      \matrix (decl) at ($ (current page.center) + (0, 25mm) $) {
-        i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
-        e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \&
-        |[blue]|t \& ; \\
-      };
-
-
-      \matrix (defn) [below=of decl] {
+      \matrix (defn) at (current page.center) {
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
         e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s
         \& |[blue]|t \&   \& \{ \& \& \\
@@ -388,13 +400,11 @@
   \&   \& r \& e \& t \& u \& r \& n \&   \& l \& o \& n \& g \& C \& a \& l \& c \& u \& l \& a \& t \& i \& o \& n \& ( \& ) \& ; \\
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
   };
-
-      \draw [arrow] (decl) -- node [right, xshift=1mm] {\normalsize Slow} (defn);
     \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{????}
+    \frametitle{\const{} Supports Shallow Bitwise Immutability}
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
@@ -422,17 +432,15 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{\const{} With Escape Hatches}
+    \frametitle{\const{} Also Supports Logical Immutability}
     \Large
-    Allows \structure{shallow logically} immutable
+    Writes to \texttt{mutable} fields allowed in \const{} methods
 
-    \vspace{1em}
-    Writes to fields (declared \texttt{mutable}) within \const{} qualified methods
-
-    \vspace{1em}
-    \centering
-    \begin{tikzpicture}
-      \matrix (bad) {
+    \vspace{12em}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix (bad) at (\paperwidth / 2, \paperheight / 2) {
         c \& l \& a \& s \&s \& \& C \& \& \{ \& \& m \& u \& t \& a \& b \& l \& e \& \& i \& n \& t \& \& v \& a
         \& l \& u \& e \& ; \\
 
@@ -455,42 +463,56 @@
 
         \} \\
       };
-      \node [right=of bad.west, inner sep=0, xshift=-6mm, yshift=-1em, circle,
-             fill=green, scale=0.7]
+      \node (c) at ($ (bad-5-1.north)!0.5!(bad-5-2.north) $)
+             [inner sep=0, circle, minimum size=6mm, scale=0.7,
+             fill=green]
             {$\checkmark$};
-      \node [right=of bad.west, inner sep=0, xshift=-6mm, yshift=-2em, circle,
-             fill=red, scale=0.7]
-            {$\times$};
+      \node (m1) [node distance=4mm, below=of bad.south west, anchor=north west, inner sep=0, text=red] {\bfseries Not allowed by compiler};
+      \node (m2) [node distance=4mm, below=of m1.south west, anchor=north west, inner sep=0, text=green] {\bfseries Allowed by compiler};
+      \node (x) at ($ (bad-6-1.north)!0.5!(bad-6-2.north) $)
+            [inner sep=0, minimum size=6mm, circle, fill=red, scale=0.7]
+            {x};
+      \draw[arrow, shorten <=0, red] let \p1 = (x.west),
+                \p2 = (m1.west)
+            in (\p1) -- ++(-10mm, 0) -- ++(0, \y2 - \y1) -- (\p2);
+      \draw[arrow, shorten <=0, green] let \p1 = (c.west),
+                \p2 = (m2.west)
+            in (\p1) -- ++(-16mm, 0) -- ++(0, \y2 - \y1) -- (\p2);
     \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{We Observe Writes-Through-\const{}}
-    \Large
+    \frametitle{Bitwise Immutability Only Reads}
+    \large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-\draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}, label=below:\textit{Our observations}]{} circle (25mm);
-\draw (\paperwidth / 3, \paperheight / 2) node {Logical} circle (12.5mm);
-\draw[label distance=20mm] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}]{Bitwise} circle (25mm);
+
+      \matrix (defn) at (current page.center) {
+        i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
+        e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s
+        \& |[blue]|t \&   \& \{ \& \& \\
+
+  \&   \& r \& e \& t \& u \& r \& n \&   \& l \& o \& n \& g \& C \& a \& l \& c \& u \& l \& a \& t \& i \& o \& n \& ( \& ) \& ; \\
+\} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  };
+      \node [node distance=4mm, fill=yellow!50, below=of defn] {
+    Can developers improve performance?
+      };
     \end{tikzpicture}
+
   \end{frame}
 
 
   \begin{frame}
-    \frametitle{Example of Shallow Logically Immutable}
+    \frametitle{Logical Immutability Has Writes}
     \large
     \centering
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \matrix (decl) at ($ (current page.center) + (0, 25mm) $) {
-        i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
-        e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \&
-        |[blue]|t \& ; \\
-      };
 
-      \matrix (defn) [below=of decl] {
+      \matrix (defn) at (current page.center) {
         c \& l \& a \& s \&s \& \& C \& \& \{ \& \& m \& u \& t \& a \& b \& l \& e \& \& i \& n \& t \& \& v \& a
         \& l \& u \& e \& ; \\
 
@@ -513,12 +535,14 @@
 
         \} \\
       };
-      \draw [arrow] (decl) -- node [right, xshift=1mm] {\normalsize Fast} (defn);
+      \node [node distance=4mm, fill=yellow!50, below=of defn] {
+Writes allowed, no usability difference, better performance
+      };
     \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{????}
+    \frametitle{Current \const{} Landscape}
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
@@ -562,19 +586,13 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{C++ Does Not Enforce Deep Bitwise Immutability}
+    \frametitle{\const{} Does Not Enforce Deep Bitwise}
     \large
     \centering
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \matrix (decl) at ($ (current page.center) + (0, 25mm) $) {
-        i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \&
-        e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \&
-        |[blue]|t \& ; \\
-      };
-
-      \matrix (defn) [below=of decl] {
+      \matrix (defn) at (current page.center) {
         c \& l \& a \& s \&s \& \& C \& \& \{ \& \& i \& n \& t \& \& * \& \& v \& a
         \& l \& u \& e \& ; \\
 
@@ -597,7 +615,9 @@
 
         \} \\
       };
-      \draw [arrow] (decl) -- node [right, xshift=1mm] {\normalsize Fast (without \texttt{mutable})} (defn);
+      \node [node distance=4mm, fill=yellow!50, below=of defn] {
+Writes allowed by compiler without \texttt{mutable}
+      };
     \end{tikzpicture}
   \end{frame}
 
@@ -680,7 +700,6 @@
     \frametitle{Incorrect \const{} Methods Lead to Issues}
     \large
     \centering
-Allowed by compiler since value is mutable
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)},
@@ -695,27 +714,39 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
         \} \\
       };
 
-
-      \matrix (first) [node distance=16mm, below=of unrelated, minimum width=40mm] {
-        \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& \& C
-        \& \& * \&  \& c \& \& = \& \& |[black!50]|. \&  |[black!50]|. \&  |[black!50]|. \& ; \\
-
-        \& u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
-
-        \& c \& - \& > \& u \& n \& r \& e \& l \& a \& t \& e \& d \& ( \& ) \& ; \& \& \& \& \& \& \& \& \\
-
-        \& u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
+      \node [node distance=4mm, fill=yellow!50, below=of unrelated] {
+Write allowed by compiler now, definite usability difference
       };
 
-      \node at (current page.center) {\normalsize Assume \texttt{getValue()} used as hash};
+      \matrix (first) [node distance=24mm, below=of unrelated, minimum width=40mm] {
+        \& \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& \& C
+        \& \& * \&  \& c \& \& = \& \& |[black!50]|. \&  |[black!50]|. \&  |[black!50]|. \& ; \\
 
-      \node [right=of first.west, inner sep=0, xshift=-4mm, yshift=0.75em, circle,
-             fill=green, scale=0.7]
+        \& \& u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
+
+        \& \& c \& - \& > \& u \& n \& r \& e \& l \& a \& t \& e \& d \& ( \& ) \& ; \\
+
+        \& \& u \& n \& o \& r \& d \& e \& r \& e \& d \& \_ \& m \& a \& p \& . \& f \& i \& n \& d \& ( \& c \& ) \& ; \\
+      };
+
+      \node [node distance=1mm, inner sep=0, above=of first] {\normalsize Assume \texttt{getValue()} used as hash};
+
+
+      \node (c) at ($ (first-2-1.north)!0.5!(first-2-2.north) $)
+             [inner sep=0, circle, minimum size=6mm, scale=0.7,
+             fill=green]
             {$\checkmark$};
-
-      \node [right=of first.west, inner sep=0, xshift=-4mm, yshift=-1.5em, circle,
-             fill=red, scale=0.7]
-            {$\times$};
+      \node (x) at ($ (first-4-1.north)!0.5!(first-4-2.north) $)
+            [inner sep=0, minimum size=6mm, circle, fill=red, scale=0.7]
+            {x};
+      \node (m1) [node distance=14mm, left=of x, inner sep=0, text=red] {\bfseries Not found};
+      \node (m2) [node distance=14mm, left=of c, inner sep=0, text=green] {\bfseries Found};
+      \draw[arrow, shorten <=0, red] let \p1 = (x.west),
+                \p2 = (m1.east)
+            in (\p1) -- ++(-10mm, 0) -- ++(0, \y2 - \y1) -- (\p2);
+      \draw[arrow, shorten <=0, green] let \p1 = (c.west),
+                \p2 = (m2.east)
+            in (\p1) -- (\p2);
 
     \end{tikzpicture}
   \end{frame}
@@ -725,11 +756,23 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
     \Large
     Developers can use \texttt{const\_cast} to remove \const{}
 
-    \vspace{1em}
+    \vspace{1.5em}
     Can occur at any place in the program
 
-    \vspace{1em}
+    \vspace{1.5em}
     Intended to work around mis-qualified libraries
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{We Observe Writes-Through-\const{}}
+    \Large
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+\draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}, label=below:\textit{Our observations}]{} circle (25mm);
+\draw (\paperwidth / 3, \paperheight / 2) node {Logical} circle (12.5mm);
+\draw[label distance=20mm] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}]{Bitwise} circle (25mm);
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
@@ -781,7 +824,7 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
   \begin{frame}
     \frametitle{Our Dynamic Analysis Reports Writes-Through-\const{}}
     \Large
-    Based on the sanitizer family of Clang tools --- ConstSanitizer
+    ConstSanitizer is our dynamic analysis tool
 
     \vspace{1em}
     Adds instrumentation during compilation
