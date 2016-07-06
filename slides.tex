@@ -641,7 +641,7 @@ Writes allowed by compiler without \texttt{mutable}
   \end{frame}
 
   \begin{frame}
-    \frametitle{The Story}
+    \frametitle{Immutability Overview}
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
@@ -748,14 +748,15 @@ Write allowed by compiler, but observable difference
   \end{frame}
 
   \begin{frame}
-    \frametitle{We Observe Writes-Through-\const{}}
+    \frametitle{We Observe Writes Through \const{} References}
     \Large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-\draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}, label=below:\textit{Our observations}]{} circle (25mm);
+\draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}, label=below:\textit{Our observations (all writes)}]{} circle (25mm);
 \draw (\paperwidth / 3, \paperheight / 2) node [align=center] {Deep\\Logical} circle (12.5mm);
-\draw[label distance=16mm] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}, align=center]{Deep\\Bitwise} circle (25mm);
+\node at (\paperwidth / 3, \paperheight * 11 / 16) {Incorrect};
+\draw[label distance=16mm, fill=black!35] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}, align=center]{Deep\\Bitwise} circle (25mm);
     \end{tikzpicture}
   \end{frame}
 
@@ -825,13 +826,26 @@ Write allowed by compiler, but observable difference
   \begin{frame}
     \frametitle{Our Dynamic Analysis Reports Writes-Through-\const{}}
     \Large
-    ConstSanitizer is our dynamic analysis tool
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node (src) [draw] at (\paperwidth * 1 / 5, \paperheight * 2 / 3) {Source file(s)};
+      \node (obj) [draw] at (\paperwidth * 2 / 5, \paperheight * 5 / 9) {Object file(s)};
+      \node (exe) [draw] at (\paperwidth * 3 / 5, \paperheight * 4 / 9) {Executable};
+      \node (report) [draw, ellipse] at (\paperwidth * 4 / 5, \paperheight / 3) {Report};
 
-    \vspace{1.5em}
-    Adds instrumentation during compilation
+      \draw[arrow, shorten <=0] let \p1 = (src.south),
+                \p2 = (obj.west)
+            in (\p1) -- (\x1, \y2) node [below, font=\normalsize, align=left, xshift=-4mm] {compliation adds\\instrumentation} -- (\p2);
+      \draw[arrow, shorten <=0] let \p1 = (obj.south),
+                \p2 = (exe.west)
+            in (\p1) -- (\x1, \y2) node [below, font=\normalsize, align=left] {linking adds\\runtime library} -- (\p2);
+      \draw[arrow, shorten <=0] let \p1 = (exe.south),
+                \p2 = (report.west)
+            in (\p1) -- (\x1, \y2) node [below, font=\normalsize, align=left, xshift=4mm] {executing reports\\writes-through-\const{}} -- (\p2);
 
-    \vspace{1.5em}
-    Linking includes our runtime library that reports writes
+      \node at (\paperwidth / 2, \paperheight / 8) {Our tool, \structure{ConstSanitizer}, actions shown on edges};
+    \end{tikzpicture}
   \end{frame}
 
   % In the case where developer intent is a maybe, we assume they did NOT mean const
@@ -1133,6 +1147,6 @@ v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& 
       \texttt{https://github.com/eyolfson/research-2016-ecoop-artifact/}
       \texttt{https://github.com/eyolfson/research-2016-ecoop-paper/}
     \end{center}
-    Thanks to Derek Rayside
+    Thanks to Derek Rayside for helping improve the clarity of the presentation
   \end{frame}
 \end{document}
