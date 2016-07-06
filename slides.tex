@@ -152,7 +152,7 @@
                         overlay,
                         shift={(current page.south west)}]
       \node [align=center, font=\huge] at (\paperwidth / 3, \paperheight / 2)
-            {\bfseries Conceptually:\\``things''\\do not\\``change''};
+            {\bfseries Conceptually:\\\structure{``things''}\\do not\\``change''};
       \node at (\paperwidth * 2 / 3, \paperheight / 2) [draw=red, line width=3mm, forbidden sign, font=\Huge,
              minimum size=20mm]
         {\bfseries Change};
@@ -282,6 +282,20 @@
         \& ( \& ) \& \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s
         \& |[blue]|t \& ; \\
       };
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{What Does Immutability Mean?}
+    \centering
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node [align=center, font=\huge] at (\paperwidth / 3, \paperheight / 2)
+            {\bfseries Conceptually:\\``things''\\do not\\\structure{``change''}};
+      \node at (\paperwidth * 2 / 3, \paperheight / 2) [draw=red, line width=3mm, forbidden sign, font=\Huge,
+             minimum size=20mm]
+        {\bfseries Change};
     \end{tikzpicture}
   \end{frame}
 
@@ -428,7 +442,7 @@
   \begin{frame}
     \frametitle{\const{} Also Supports Logical Immutability}
     \Large
-    Writes to \texttt{mutable} fields allowed in \const{} methods
+    Writes to \texttt{\bfseries mutable} fields allowed in \const{} methods
 
     \vspace{12em}
     \begin{tikzpicture}[remember picture,
@@ -494,9 +508,7 @@
     Can developers improve performance?
       };
     \end{tikzpicture}
-
   \end{frame}
-
 
   \begin{frame}
     \frametitle{Logical Immutability Has Writes}
@@ -530,7 +542,7 @@
         \} \\
       };
       \node [node distance=4mm, fill=yellow!50, below=of defn] {
-Writes allowed, no usability difference, better performance
+Writes allowed, no observable difference, better performance
       };
     \end{tikzpicture}
   \end{frame}
@@ -618,7 +630,8 @@ Writes allowed by compiler without \texttt{mutable}
   \begin{frame}
     \frametitle{We Observe Deep Immutability}
     \Large
-    We want to observe the previous case
+    We want to observe caching field writes in both cases
+    \\(shallow vs. deep)
 
     \vspace{1.5em}
     Fields being values or references doesn't matter
@@ -686,7 +699,7 @@ v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& 
       };
 
       \node [node distance=4mm, fill=yellow!50, below=of unrelated] {
-Write allowed by compiler, but usability difference
+Write allowed by compiler, but observable difference
       };
 
       \matrix (first) [node distance=24mm, below=of unrelated, minimum width=40mm] {
@@ -750,8 +763,8 @@ Write allowed by compiler, but usability difference
     \frametitle{Does \const{} Mean Deep Logically Immutable?}
     \Large
 
-    Our analysis applies \const{} through fields transitively
-    \\(i.e. deep immutability)
+    Our analysis assumes deep immutability
+    \\(i.e. writes through fields)
 
     \vspace{1.5em}
     Report any writes through a \const{} reference at runtime
@@ -773,6 +786,9 @@ Write allowed by compiler, but usability difference
     \Large
     \vspace{1.5em}
     Yes, they do
+
+    \vspace{1.5em}
+    We observe 17 unique cases
   \end{frame}
 
   \begin{frame}
@@ -785,6 +801,9 @@ Write allowed by compiler, but usability difference
     \Large
     \vspace{1.5em}
     Equally shallow (using \texttt{mutable}) and deep (transitively)
+
+    \vspace{1.5em}
+    8 of each in the 17 unique cases
   \end{frame}
 
   \begin{frame}
@@ -799,7 +818,8 @@ Write allowed by compiler, but usability difference
     Conventional wisdom: buffering / caching
 
     \vspace{1.5em}
-    Found \structure{around half} had observable changes (incorrect)
+    Found \structure{around half} (9 of 17) had observable changes
+    \\(classified as incorrect)
   \end{frame}
 
   \begin{frame}
@@ -913,10 +933,12 @@ Write allowed by compiler, but usability difference
   \begin{frame}
     \frametitle{Hypothesis for Logically Immutable}
     \Large
+    Attributes:
     \begin{itemize}
       \setlength\itemsep{0.5em}
       \item Buffer / Caching
       \item Delayed Initialization
+      \item Incorrect
     \end{itemize}
 
     \vspace{1.5em}
@@ -1029,7 +1051,7 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \end{frame}
 
   \begin{frame}
-    \frametitle{Remaining Project's Overall Results}
+    \frametitle{Remaining Projects' Overall Results}
     \Large
     \begin{tabular}{b{4cm} b{4cm} b{4cm}}
       \textbf{Project} & \textbf{Root Cause}
