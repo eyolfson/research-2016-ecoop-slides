@@ -824,7 +824,7 @@ Write allowed by compiler, but observable difference
   \end{frame}
 
   \begin{frame}
-    \frametitle{Our Dynamic Analysis Reports Writes-Through-\const{}}
+    \frametitle{Our Dynamic Analysis Tool, ConstSanitizer, Reports Writes-Through-\const{}}
     \Large
     \begin{tikzpicture}[remember picture,
                         overlay,
@@ -844,7 +844,7 @@ Write allowed by compiler, but observable difference
                 \p2 = (report.west)
             in (\p1) -- (\x1, \y2) node [below, font=\normalsize, align=left, xshift=4mm] {executing reports\\writes-through-\const{}} -- (\p2);
 
-      \node at (\paperwidth / 2, \paperheight / 8) {Our tool, \structure{ConstSanitizer}, actions shown on edges};
+      \node at (\paperwidth / 2, \paperheight / 8) {Edges are \structure{ConstSanitizer} actions};
     \end{tikzpicture}
   \end{frame}
 
