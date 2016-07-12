@@ -1,4 +1,4 @@
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=43]{beamer}
 
 \definecolor{red}{RGB}{220, 50, 47}
 \definecolor{green}{RGB}{133, 153, 0}
@@ -61,13 +61,13 @@
           at (\paperwidth / 2, \paperheight * 2 / 3)
           {\usebeamerfont{title}\usebeamercolor[fg]{title}C++ \const{} and
            \usebeamerfont{title}\usebeamercolor[fg]{title}Immutability:\\
-           \usebeamerfont{title}\usebeamercolor[fg]{title}An Empirical
-           \usebeamerfont{title}\usebeamercolor[fg]{title}Study of Writes-Through-\const{}};
+           \usebeamerfont{title}\usebeamercolor[fg]{title}An Empirical Study of\\
+           \usebeamerfont{title}\usebeamercolor[fg]{title}Writes-Through-\const{}};
 
-    \node (author) [scale=1.5] at (\paperwidth / 3, \paperheight / 3) {\insertauthor};
+    \node (author) [scale=1.5] at (\paperwidth / 4, \paperheight / 3) {\insertauthor};
     \node [node distance=-2mm, below=of author] {\texttt{https://eyl.io/}};
-    \node (a2) [scale=1.5] at (\paperwidth * 2 / 3, \paperheight / 3) {Patrick Lam};
-    \node [node distance=-2mm, below=of a2] {\texttt{https://patricklam.ca/}};
+    \node (a2) [scale=1.5] at (\paperwidth * 3 / 4, \paperheight / 3) {Patrick Lam};
+    \node [node distance=-1.5mm, below=of a2] {\texttt{https://patricklam.ca/}};
     \node [anchor=south east, inner sep=2mm] at (\paperwidth, 0) {\bfseries \insertdate};
     \node [yshift=-2mm] at (\paperwidth / 2, \paperheight /2) {\includegraphics[scale=0.3]{uwaterloo-logo}};
   \end{tikzpicture}
@@ -107,9 +107,9 @@
   \tikzset{
     person/.style={scale=4, inner sep=0},
     speechline/.style={line width=1mm, inner sep=0},
-    speechlarge/.style={scale=3, baseline=0, anchor=base, draw, line width=1mm,
+    speechlarge/.style={scale=2.5, baseline=0, anchor=base, draw, line width=1mm,
                         rounded corners, outer sep=0, align=center},
-    speechsmall/.style={scale=2, baseline=0, anchor=base, draw, line width=1mm,
+    speechsmall/.style={scale=1.5, baseline=0, anchor=base, draw, line width=1mm,
                         rounded corners, outer sep=0, align=center},
   }
 
@@ -151,9 +151,9 @@
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \node [align=center, font=\huge] at (\paperwidth / 3, \paperheight / 2)
+      \node [align=center, font=\huge] at (\paperwidth * 3 / 10, \paperheight / 2)
             {\bfseries Conceptually:\\\structure{``things''}\\do not\\``change''};
-      \node at (\paperwidth * 2 / 3, \paperheight / 2) [draw=red, line width=3mm, forbidden sign, font=\Huge,
+      \node at (\paperwidth * 7 / 10, \paperheight / 2) [draw=red, line width=3mm, forbidden sign, font=\Huge,
              minimum size=20mm]
         {\bfseries Change};
     \end{tikzpicture}
@@ -209,15 +209,15 @@
 
   \begin{frame}
     \frametitle{Shallow vs. Deep (What Changes in Methods?)}
-    \Large
+    \large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
       \tikzset{memory/.style={draw, rectangle, node distance=0,
                               line width=0.3mm, scale=1.25,
                               minimum height=9mm, minimum width=6mm}}
-      \node [inner sep=0, scale=1.25, yshift=4mm] (o)
-            at (\paperwidth / 5, \paperheight * 2 / 3)
+      \node [inner sep=0, scale=1.25] (o)
+            at (\paperwidth * 1.9 / 10, \paperheight * 7 / 10)
             {Object \texttt{o}};
       \node [memory, right=of o, xshift=3mm] (f0)
             {$f_a$};
@@ -232,19 +232,19 @@
       \node [memory, below=of m0, xshift=12mm, yshift=-6mm] (t0) {};
 
       \node at (o.west)
-            [xshift=-3mm, draw, line width=0.3mm, minimum width=67mm,
+            [xshift=-3mm, draw, line width=0.3mm, minimum width=58mm,
              minimum height=14mm, anchor=west] {};
 
       \node (sbox) at (f0.west)
            [anchor=west, xshift=-1mm, fill opacity=0.5, text opacity=1,
             fill=yellow, align=right,
-            minimum height=14mm, minimum width=95mm]
+            minimum height=14mm, minimum width=80mm]
            {};
 
       \node (dbox) at (m0.west)
            [anchor=west, xshift=-1mm, fill opacity=0.5, text opacity=1,
             fill=yellow, align=right, yshift=-9.5mm,
-            minimum height=33mm, minimum width=113.5mm]
+            minimum height=33mm, minimum width=98.5mm]
            {};
 
       \node [align=left, node distance=0, anchor=east, left=of sbox.east]
@@ -262,13 +262,13 @@
 
   \begin{frame}
     \frametitle{\const{} Indicates Shallow Immutability}
-    \Large
+    \large
     \const{} is a type qualifier used to specify immutability
 
-    \vspace{1.5em}
+    \vspace{2em}
     In methods, changes cannot happen to fields
 
-    \vspace{1.5em}
+    \vspace{2em}
     To references, changes cannot happen with reference
   \end{frame}
 
@@ -291,9 +291,9 @@
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \node [align=center, font=\huge] at (\paperwidth / 3, \paperheight / 2)
+      \node [align=center, font=\huge] at (\paperwidth * 3 / 10, \paperheight / 2)
             {\bfseries Conceptually:\\``things''\\do not\\\structure{``change''}};
-      \node at (\paperwidth * 2 / 3, \paperheight / 2) [draw=red, line width=3mm, forbidden sign, font=\Huge,
+      \node at (\paperwidth * 7 / 10, \paperheight / 2) [draw=red, line width=3mm, forbidden sign, font=\Huge,
              minimum size=20mm]
         {\bfseries Change};
     \end{tikzpicture}
@@ -354,13 +354,13 @@
 
   \begin{frame}
     \frametitle{Bitwise Means No Writes}
-    \Large
-    \const{} (by default) means \structure{shallow bitwise} immutability
+    \large
+    \const{} (default) means \structure{shallow bitwise} immutability
 
-    \vspace{1.5em}
+    \vspace{2em}
     \const{} qualified methods contain no writes to fields
 
-    \vspace{4em}
+    \vspace{6em}
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
@@ -440,11 +440,11 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{\const{} Also Supports Logical Immutability}
-    \Large
+    \frametitle{\const{} Supports Logical Immutability}
+    \large
     Writes to \texttt{\bfseries mutable} fields allowed in \const{} methods
 
-    \vspace{12em}
+    \vspace{14.5em}
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
@@ -541,8 +541,8 @@
 
         \} \\
       };
-      \node [node distance=4mm, fill=yellow!50, below=of defn] {
-Writes allowed, no observable difference, better performance
+      \node [node distance=4mm, fill=yellow!50, align=center, below=of defn] {
+Writes allowed, no observable difference,\\better performance
       };
     \end{tikzpicture}
   \end{frame}
@@ -629,15 +629,15 @@ Writes allowed by compiler without \texttt{mutable}
 
   \begin{frame}
     \frametitle{We Observe Deep Immutability}
-    \Large
+    \large
     We want to observe caching field writes in both cases
     \\(shallow vs. deep)
 
-    \vspace{1.5em}
+    \vspace{2em}
     Fields being values or references doesn't matter
 
-    \vspace{1.5em}
-    Deep immutability is more restrictive, we observe more
+    \vspace{2em}
+    Deep immutability is more restrictive\\(we observe more)
   \end{frame}
 
   \begin{frame}
@@ -682,13 +682,13 @@ Writes allowed by compiler without \texttt{mutable}
 
   \begin{frame}
     \frametitle{Incorrect \const{} Methods Are Confusing}
-    \large
+    \normalsize
     \centering
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)},
                         node distance=5mm]
-      \matrix (unrelated) at ($ (current page.center) + (0, 21mm) $) {
+      \matrix (unrelated) at ($ (current page.center) + (0, 18mm) $) {
 v \& o \& i \& d \&   \& C \& : \& : \& u \& n \& r \& e \& l \& a \& t \& e \& d \& ( \& ) \&   \& |[blue]|c \& |
 [blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& \& \{ \\
 
@@ -723,11 +723,11 @@ Write allowed by compiler, but observable difference
       \node (x) at ($ (first-4-1.north)!0.5!(first-4-2.north) $)
             [inner sep=0, minimum size=6mm, circle, fill=red, scale=0.7]
             {x};
-      \node (m1) [node distance=14mm, left=of x, inner sep=0, text=red] {\bfseries Not found};
-      \node (m2) [node distance=14mm, left=of c, inner sep=0, text=green] {\bfseries Found};
+      \node (m1) [node distance=8mm, left=of x, inner sep=0, text=red] {\bfseries Not found};
+      \node (m2) [node distance=8mm, left=of c, inner sep=0, text=green] {\bfseries Found};
       \draw[arrow, shorten <=0, red] let \p1 = (x.west),
                 \p2 = (m1.east)
-            in (\p1) -- ++(-10mm, 0) -- ++(0, \y2 - \y1) -- (\p2);
+            in (\p1) -- (\p2);
       \draw[arrow, shorten <=0, green] let \p1 = (c.west),
                 \p2 = (m2.east)
             in (\p1) -- (\p2);
@@ -737,41 +737,28 @@ Write allowed by compiler, but observable difference
 
   \begin{frame}
     \frametitle{\texttt{const\_cast} Can Remove \const{} Anywhere}
-    \Large
+    \large
     A third way to write through a field in \const{} method
 
-    \vspace{1.5em}
+    \vspace{2em}
     Can also occur at any location in the program
 
-    \vspace{1.5em}
+    \vspace{2em}
     Intended to work around mis-qualified libraries
   \end{frame}
 
   \begin{frame}
-    \frametitle{We Observe Writes Through \const{} References}
-    \Large
-    \begin{tikzpicture}[remember picture,
-                        overlay,
-                        shift={(current page.south west)}]
-\draw[label distance=23mm] (\paperwidth / 3, \paperheight / 2) node[label=above left:\textbf{Writes}, label=below:\textit{Our observations (all writes)}]{} circle (25mm);
-\draw (\paperwidth / 3, \paperheight / 2) node [align=center] {Deep\\Logical} circle (12.5mm);
-\node at (\paperwidth / 3, \paperheight * 11 / 16) {Incorrect};
-\draw[label distance=16mm, fill=black!35] (\paperwidth * 2 / 3, \paperheight / 2) node[label=above right:\textbf{No writes}, align=center]{Deep\\Bitwise} circle (25mm);
-    \end{tikzpicture}
-  \end{frame}
-
-  \begin{frame}
     \frametitle{Does \const{} Mean Deep Logically Immutable?}
-    \Large
+    \large
 
     Our analysis assumes deep immutability
-    \\(i.e. writes through fields)
+    \\(i.e. writes to and through fields)
 
-    \vspace{1.5em}
-    Report any writes through a \const{} reference at runtime
+    \vspace{2em}
+    Report writes through a \const{} reference dynamically
     \\(referred to as writes-through-\const{})
 
-    \vspace{1.5em}
+    \vspace{2em}
     Manually classify writes as \structure{logically} immutable
     or not
     \\(not logically immutable referred to as incorrect)
@@ -784,11 +771,11 @@ Write allowed by compiler, but observable difference
        Do developers write-though-\const{}?
     }
 
-    \Large
-    \vspace{1.5em}
+    \large
+    \vspace{2em}
     Yes, they do
 
-    \vspace{1.5em}
+    \vspace{2em}
     We observe 17 unique cases
   \end{frame}
 
@@ -799,11 +786,11 @@ Write allowed by compiler, but observable difference
        How do developers write-though-\const{}?
     }
 
-    \Large
-    \vspace{1.5em}
+    \large
+    \vspace{2em}
     Equally shallow (using \texttt{mutable}) and deep (transitively)
 
-    \vspace{1.5em}
+    \vspace{2em}
     8 of each in the 17 unique cases
   \end{frame}
 
@@ -814,18 +801,17 @@ Write allowed by compiler, but observable difference
        Why do developers write-though-\const{}?
     }
 
-    \Large
-    \vspace{1.5em}
+    \large
+    \vspace{2em}
     Conventional wisdom: buffering / caching
 
-    \vspace{1.5em}
+    \vspace{2em}
     Found \structure{around half} (9 of 17) had observable changes
     \\(classified as incorrect)
   \end{frame}
 
   \begin{frame}
     \frametitle{Our Dynamic Analysis Tool, ConstSanitizer, Reports Writes-Through-\const{}}
-    \Large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
@@ -836,13 +822,13 @@ Write allowed by compiler, but observable difference
 
       \draw[arrow, shorten <=0] let \p1 = (src.south),
                 \p2 = (obj.west)
-            in (\p1) -- (\x1, \y2) node [below, font=\normalsize, align=left, xshift=-4mm] {compliation adds\\instrumentation} -- (\p2);
+            in (\p1) -- (\x1, \y2) node [below, font=\small, align=left, xshift=-4mm] {compliation adds\\instrumentation} -- (\p2);
       \draw[arrow, shorten <=0] let \p1 = (obj.south),
                 \p2 = (exe.west)
-            in (\p1) -- (\x1, \y2) node [below, font=\normalsize, align=left] {linking adds\\runtime library} -- (\p2);
+            in (\p1) -- (\x1, \y2) node [below, font=\small, align=left] {linking adds\\runtime library} -- (\p2);
       \draw[arrow, shorten <=0] let \p1 = (exe.south),
                 \p2 = (report.west)
-            in (\p1) -- (\x1, \y2) node [below, font=\normalsize, align=left, xshift=4mm] {executing reports\\writes-through-\const{}} -- (\p2);
+            in (\p1) -- (\x1, \y2) node [below, font=\small, align=left, xshift=4mm] {executing reports\\writes-through-\const{}} -- (\p2);
 
       \node at (\paperwidth / 2, \paperheight / 8) {Edges are \structure{ConstSanitizer} actions};
     \end{tikzpicture}
@@ -852,23 +838,22 @@ Write allowed by compiler, but observable difference
 
   \begin{frame}
     \frametitle{Our Instrumentation Propagates \const{}}
-    \Large
+    \large
     Every variable has a ``shadow value''
 
-    \vspace{1.5em}
+    \vspace{2em}
     A shadow value is either \texttt{0} (non-\const{}) or \texttt{1} (\const{})
 
-    \vspace{1.5em}
+    \vspace{2em}
     Our analysis preserves \const{} transitively
   \end{frame}
 
   \begin{frame}
     \frametitle{Shadow Values for Running Example}
-    \large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \matrix (defn) at ($ (current page.center) - (27mm, 10mm) $) {
+      \matrix (defn) at ($ (current page.center) - (25mm, 10mm) $) {
         i \& n \& t \&   \& C \& : \& : \& g \& e \& t \& V \& a \& l \& u \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
 
   \&   \& i \& f \&  \& ( \& ! \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& a \& c \& h \& e \& d \& ) \&   \& \{  \\
@@ -893,7 +878,7 @@ Write allowed by compiler, but observable difference
 
       \draw [arrow] (call) -- node [right, xshift=1mm] {\normalsize Call} (defn);
 
-      \node (sv2) [right=of defn.north east, anchor=north west] {\texttt{this}:};
+      \node (sv2) [node distance=6mm, right=of defn.north east, anchor=north west] {\texttt{this}:};
       \node [fill=yellow!50, node distance=1mm, right=of sv2] {\texttt{1}};
 
       \node (sv1) [node distance=15mm, above=of sv2.west, anchor=west] {\texttt{c}:};
@@ -914,7 +899,6 @@ Write allowed by compiler, but observable difference
 
   \begin{frame}
     \frametitle{Our Analysis Reports Both Caching Writes}
-    \large
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
@@ -946,7 +930,7 @@ Write allowed by compiler, but observable difference
 
   \begin{frame}
     \frametitle{Hypothesis for Logically Immutable}
-    \Large
+    \large
     Attributes:
     \begin{itemize}
       \setlength\itemsep{0.5em}
@@ -955,13 +939,13 @@ Write allowed by compiler, but observable difference
       \item Incorrect
     \end{itemize}
 
-    \vspace{1.5em}
+    \vspace{2em}
     Additional attributes included in paper
   \end{frame}
 
   \begin{frame}
     \frametitle{We Ran Our Experiments on 7 C++ Projects}
-    \Large
+    \large
     We selected top C++ projects on GitHub
 
     \centering
@@ -981,21 +965,21 @@ Write allowed by compiler, but observable difference
 
   \begin{frame}
     \frametitle{We Manually Categorized All Writes-Through-\const{}}
-    \Large
+    \large
     Compiled projects with ConstSaniziter and ran tests\\(or executable)
 
-    \vspace{1.5em}
+    \vspace{2em}
     Grouped similar static locations and classified
     \\(e.g. cache writes in example are grouped)
 
-    \vspace{1.5em}
+    \vspace{2em}
     Classification is root cause (how) and attribute (why)
   \end{frame}
 
   \begin{frame}
     \frametitle{Protobuf's Overall Results}
-    \Large
-    \begin{tabular}{b{4cm} b{5.2cm} b{3.3cm}}
+    \large
+    \begin{tabular}{b{2.6cm} b{4.2cm} b{2.7cm}}
       \textbf{Root Cause} & \textbf{Attribute}
       & \textbf{Dynamic \newline Occurences} \\
       & & \\
@@ -1012,7 +996,7 @@ Write allowed by compiler, but observable difference
   \begin{frame}
     \frametitle{Protobuf Caching Example}
     \centering
-    \large
+    \small
     \begin{tikzpicture}
       \matrix {
 i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& t \& o \& r \& P \& r \& o \& t \& o \& : \& : \& B \& y \& t \& e \& S \& i \& z \& e \& ( \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
@@ -1030,8 +1014,8 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
 
   \begin{frame}
     \frametitle{LevelDB's Overall Results}
-    \Large
-    \begin{tabular}{b{4cm} b{5.2cm} b{3.3cm}}
+    \large
+    \begin{tabular}{b{2.6cm} b{4.2cm} b{2.7cm}}
       \textbf{Root Cause} & \textbf{Attribute}
       & \textbf{Dynamic \newline Occurences} \\
       & & \\
@@ -1048,26 +1032,26 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \begin{frame}
     \frametitle{LevelDB Not Visible Example}
     \centering
-    \large
+    \small
     \begin{tikzpicture}
       \matrix  {
- c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& l \& e \&   \& : \&   \& p \& u \& b \& l \& i \& c \&   \& R \& a \& n \& d \& o \& m \& A \& c \& c \& e \& s \& s \& F \& i \& l \& e \&   \& \{ \\
+ c \& l \& a \& s \& s \&   \& C \& o \& u \& n \& t \& i \& n \& g \& F \& i \& l \& e \&   \& : \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& \& R \& a \& n \& d \& o \& m \& A \& c \& c \& e \& s \& s \& F \& i \& l \& e \&   \& \{ \\
 
- \&   \& v \& i \& r \& t \& u \& a \& l \&   \& S \& t \& a \& t \& u \& s \&   \& R \& e \& a \& d \& ( \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+ \&   \& v \& i \& r \& t \& u \& a \& l \&   \& S \& t \& a \& t \& u \& s \&   \& R \& e \& a \& d \& ( \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& \{ \\
 
-  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& o \& u \& n \& t \& e \& r \& \_ \& - \& > \& I \& n \& c \& r \& e \& m \& e \& n \& t \& ( \& ) \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+  \&   \&   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& c \& o \& u \& n \& t \& e \& r \& \_ \& - \& > \& I \& n \& c \& r \& e \& m \& e \& n \& t \& ( \& ) \& ; \\
 
-  \&   \& \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+\& \& \} \\
 
-\} \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+\} \& ; \\
       };
     \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
     \frametitle{Remaining Projects' Overall Results}
-    \Large
-    \begin{tabular}{b{4cm} b{4cm} b{4cm}}
+    \large
+    \begin{tabular}{b{3.4cm} b{2.6cm} b{3.2cm}}
       \textbf{Project} & \textbf{Root Cause}
       & \textbf{Attribute} \\
       & & \\
@@ -1084,13 +1068,18 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \begin{frame}
     \frametitle{fish shell Removes \const{} then Writes}
     \centering
+    \small
     \begin{tikzpicture}
 
+\footnotesize
       \matrix (wgetopt) {
-|[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& \_ \& w \& g \& e \& t \& o \& p \& t \& \_ \& i \& n \& t \& e \& r \& n \& a \& l \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& * \& a \& r \& g \& v \& , \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{ \\
+|[black!50]|. \& |[black!50]|. \& |[black!50]|. \\
+
+\_ \& w \& g \& e \& t \& o \& p \& t \& \_ \& i \& n \& t \& e \& r \& n \& a \& l \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& * \& a \& r \& g \& v \& , \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{ \\
   \&   \& e \& x \& c \& h \& a \& n \& g \& e \& ( \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& * \& ) \&   \& a \& r \& g \& v \& ) \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&    \\
 \} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&    \\
   };
+\small
       \matrix (exchange) [scale=0.5, below=of wgetopt] {
 |[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& e \& x \& c \& h \& a \& n \& g \& e \& ( \& w \& c \& h \& a \& r \& \_ \& t \&   \& * \& * \& a \& r \& g \& v \& ) \&   \& \{ \\
 
@@ -1112,27 +1101,34 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \begin{frame}
     \frametitle{Mosh Writes Directly Through \const{}}
     \centering
-    \large
+    \small
     \begin{tikzpicture}
       \matrix  {
-v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& P \& a \& r \& s \& e \& r \& : \& : \& P \& r \& i \& n \& t \&   \& * \& a \& c \& t \& ) \&   \& \{ \\
-  \&   \& a \& c \& t \& - \& > \& h \& a \& n \& d \& l \& e \& d \&   \& = \&   \& t \& r \& u \& e \& ; \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
-\} \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \&   \\
+v \& o \& i \& d \\
+
+E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \&   \& P \& a \& r \& s \& e \& r \& : \& : \& P \& r \& i \& n \& t \&   \& * \& a \& c \& t \& ) \&   \& \{ \\
+  \&   \& a \& c \& t \& - \& > \& h \& a \& n \& d \& l \& e \& d \&   \& = \&   \& t \& r \& u \& e \& ; \\
+
+\} \\
       };
     \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
     \frametitle{Answers to Research Questions}
-    \Large
+    \large
     \begin{enumerate}
       \setlength\itemsep{0.5em}
       \item Developers write-through-\const{}
-      \item Shallow and deep bitwise immutability violated equally
-      \item Around half of writes-through-\const{} not logically immutable
+      \item Shallow and deep bitwise violated equally
+      \item Around half of writes-through-\const{}
 
-            \vspace{1.5em}
-            They appear to be undesirable and fixed by developers
+            are not logically immutable
+
+            \vspace{2em}
+            They appear to be undesirable since
+
+            they are fixed by developers
     \end{enumerate}
   \end{frame}
 
@@ -1143,7 +1139,8 @@ v \& o \& i \& d \&   \& E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& 
       \includegraphics[scale=0.1]{aec-badge-ecoop}
 
       \vspace{0.25em}
-      \texttt{\huge https://github.com/eyolfson/}
+\scriptsize
+      \texttt{https://github.com/eyolfson/}
       \texttt{https://github.com/eyolfson/research-2016-ecoop-artifact/}
       \texttt{https://github.com/eyolfson/research-2016-ecoop-paper/}
     \end{center}
