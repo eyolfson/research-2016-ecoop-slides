@@ -970,8 +970,7 @@ Write allowed by compiler, but observable difference
     Compiled projects with ConstSaniziter and ran tests\\(or executable)
 
     \vspace{2em}
-    Grouped similar static locations and classified
-    \\(e.g. cache writes in example are grouped)
+    Observed static locations and classified
 
     \vspace{2em}
     Classification is root cause (how) and attribute (why)
@@ -992,6 +991,11 @@ Write allowed by compiler, but observable difference
       \texttt{mutable} & Incorrect              & \texttt{~~~~~~~~~84} \\
       & & \\
     \end{tabular}
+
+    \vspace{2em}
+    \normalsize
+    Note: Similar static locations were grouped
+    \\(e.g. cache writes in running example are one entry)
   \end{frame}
 
   \begin{frame}
@@ -1012,6 +1016,20 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
       };
     \end{tikzpicture}
   \end{frame}
+
+  \begin{frame}
+    \frametitle{Protobuf Modifies Linked List}
+    \centering
+%    \small
+    \begin{tikzpicture}
+      \matrix {
+l \& i \& n \& k \& e \& d \& \_ \& p \& t \& r \& \_ \& i \& n \& t \& e \& r \& n \& a \& l \&   \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& * \&   \& p \&   \& = \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ; \\
+w \& h \& i \& l \& e \&   \& ( \& p \& - \& > \& n \& e \& x \& t \& \_ \&   \& ! \& = \&   \& t \& h \& i \& s \& ) \&   \& p \&   \& = \&   \& p \& - \& > \& n \& e \& x \& t \& \_ \& ; \\
+p \& - \& > \& n \& e \& x \& t \& \_ \&   \& = \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& n \& e \& x \& t \& \_ \& ; \\
+      };
+    \end{tikzpicture}
+  \end{frame}
+
 
   \begin{frame}
     \frametitle{LevelDB's Overall Results}
