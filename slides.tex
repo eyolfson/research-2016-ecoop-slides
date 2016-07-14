@@ -1135,15 +1135,17 @@ E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& 
   \begin{frame}
     \frametitle{Try It Out}
 
-    \begin{center}
-      \includegraphics[scale=0.1]{aec-badge-ecoop}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node at (\paperwidth / 3, \paperheight / 2) {\includegraphics[scale=0.1]{aec-badge-ecoop}};
+      \node [inner sep=0, anchor=east] (github) at (\paperwidth * 2/ 3, \paperheight / 2) {\includegraphics[scale=0.15]{github-logo}};
+      \node [inner sep=0, node distance=1mm, right=of github.south east, anchor=south west] {\Large \texttt{/eyolfson/}};
+      \node (art) [node distance=2mm, below=of github.south east, xshift=2mm] {\small \texttt{research-2016-ecoop-artifact}};
+      \node [inner sep=0, node distance=0, below=of art] {\small \texttt{research-2016-ecoop-paper}};
+      \node at (\paperwidth / 2, \paperheight / 8) {\small Thanks to Derek Rayside for helping improve presentation clarity};
+      \node [above=of github.south east] {\Large \texttt{https://eyl.io/}};
+    \end{tikzpicture}
 
-      \vspace{0.25em}
-\scriptsize
-      \texttt{https://github.com/eyolfson/}
-      \texttt{https://github.com/eyolfson/research-2016-ecoop-artifact/}
-      \texttt{https://github.com/eyolfson/research-2016-ecoop-paper/}
-    \end{center}
-    Thanks to Derek Rayside for helping improve the clarity of the presentation
   \end{frame}
 \end{document}
