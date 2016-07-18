@@ -50,7 +50,9 @@
 
 \newcommand{\const}{{\color{blue} \bfseries \ttfamily const}}
 
-% TODO: change this->valid to this->cachced
+% TODO 18: Don't say observe in title. Say measure, but more explicit.
+% TODO 22: Relate to developers
+% TODO: Pepper developers into the rest of the slides
 
 \setbeamertemplate{title page}
 {
@@ -628,16 +630,16 @@ Writes allowed by compiler without \texttt{mutable}
   \end{frame}
 
   \begin{frame}
-    \frametitle{We Observe Deep Immutability}
+    \frametitle{We Report Deep Immutability}
     \large
-    We want to observe caching field writes in both cases
+    We want to report caching field writes in both cases
     \\(shallow vs. deep)
 
     \vspace{2em}
     Fields being values or references doesn't matter
 
     \vspace{2em}
-    Deep immutability is more restrictive\\(we observe more)
+    Deep immutability is more restrictive\\(more reports)
   \end{frame}
 
   \begin{frame}
@@ -748,7 +750,7 @@ Write allowed by compiler, but observable difference
   \end{frame}
 
   \begin{frame}
-    \frametitle{Does \const{} Mean Deep Logically Immutable?}
+    \frametitle{Do Developers Mean Deep Logically Immutable?}
     \large
 
     Our analysis assumes deep immutability
