@@ -750,10 +750,10 @@ Write allowed by compiler, but observable difference
   \end{frame}
 
   \begin{frame}
-    \frametitle{Do Developers Mean Deep Logically Immutable?}
+    \frametitle{Do Developers Mean Logically Immutable?}
     \large
 
-    Our analysis assumes deep immutability
+    Our analysis tracks \const{} as deep bitwise
     \\(i.e. writes to and through fields)
 
     \vspace{2em}
@@ -764,6 +764,35 @@ Write allowed by compiler, but observable difference
     Manually classify writes as \structure{logically} immutable
     or not
     \\(not logically immutable referred to as incorrect)
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{What Immutability We Classify}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \visible<1> {
+        \node [person] (p1) at (\paperwidth * 1 / 16, \paperheight / 6) {😶};
+        \node [person] (p4) at (\paperwidth * 0.71875, \paperheight / 6) {😶};
+        \node [speechsmall] (s1) at (\paperwidth / 8, \paperheight / 2) {Shallow\\Bitwise};
+        \node [speechsmall] (s3) at (\paperwidth * 5 / 8, \paperheight / 2) {Deep\\Bitwise};
+        \draw [speechline, shorten <=1mm] (p1) -- (s1);
+        \draw [speechline, shorten <=1mm] (p4) -- (s3);
+      }
+      \visible<1-2> {
+        \node [person] (p2) at (\paperwidth * 0.28125, \paperheight / 6) {😶};
+        \node [person] (p3) at (\paperwidth * 4 / 8, \paperheight / 6) {😶};
+        \node [person] (p5) at (\paperwidth * 15 / 16, \paperheight / 6) {😶};
+      }
+      \visible<1-2> {
+        \node [speechsmall] (s2) at (\paperwidth * 3/ 8, \paperheight * 3 / 8) {Shallow\\Logical};
+        \node [speechsmall] (s4) at (\paperwidth * 7 / 8, \paperheight * 3 / 8) {Deep\\Logical};
+        \node [speechlarge] (s11) at (\paperwidth / 2, \paperheight * 3/ 4) {Except One Change};
+        \draw [speechline] (p2) -- (s2);
+        \draw [speechline, shorten <=1mm] (p3) -- (s11);
+        \draw [speechline, shorten <=1mm] (p5) -- (s4);
+      }
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
@@ -975,7 +1004,8 @@ Write allowed by compiler, but observable difference
     Observed static locations and classified
 
     \vspace{2em}
-    Classification is root cause (how) and attribute (why)
+    Classification is root cause (how) and attribute (why)\\
+    \textit{Recall: \texttt{mutable} is shallow, transitive is deep}
   \end{frame}
 
   \begin{frame}
@@ -1030,8 +1060,14 @@ w \& h \& i \& l \& e \&   \& ( \& p \& - \& > \& n \& e \& x \& t \& \_ \&   \&
 p \& - \& > \& n \& e \& x \& t \& \_ \&   \& = \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& n \& e \& x \& t \& \_ \& ; \\
       };
     \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node at (\paperwidth / 2, \paperheight * 12 / 16) [fill=yellow!50] {
+Changes linked list node through \texttt{p}, field is \texttt{mutable}
+      };
+    \end{tikzpicture}
   \end{frame}
-
 
   \begin{frame}
     \frametitle{LevelDB's Overall Results}
@@ -1065,6 +1101,13 @@ p \& - \& > \& n \& e \& x \& t \& \_ \&   \& = \&   \& |[black!50]|t \& |[black
 \& \& \} \\
 
 \} \& ; \\
+      };
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node at (\paperwidth / 2, \paperheight * 12 / 16) [fill=yellow!50] {
+Changed \texttt{counter\_} field only used for unit tests
       };
     \end{tikzpicture}
   \end{frame}
@@ -1117,6 +1160,23 @@ p \& - \& > \& n \& e \& x \& t \& \_ \&   \& = \&   \& |[black!50]|t \& |[black
 
       \draw [arrow] (wgetopt) -- node [right, xshift=1mm] {\normalsize Call} (exchange);
     \end{tikzpicture}
+
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node at (\paperwidth / 2, \paperheight * 13.5 / 16) [fill=yellow!50] {
+Declares function won't change order of strings in array
+      };
+      \node at (\paperwidth * 8.1 / 10, \paperheight * 5.65 / 10) [fill=yellow!50] {
+Changes order of strings
+      };
+      \node (c) at (\paperwidth * 6.6 / 10, \paperheight / 9)
+             [inner sep=0, circle, minimum size=6mm, scale=0.7,
+             fill=green]
+            {$\checkmark$};
+      \node [node distance=0, green, right=of c] {\bfseries Fixed by developers};
+    \end{tikzpicture}
+
   \end{frame}
 
   \begin{frame}
@@ -1132,6 +1192,15 @@ E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& 
 
 \} \\
       };
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node (c) at (\paperwidth * 6.6 / 10, \paperheight / 9)
+             [inner sep=0, circle, minimum size=6mm, scale=0.7,
+             fill=green]
+            {$\checkmark$};
+      \node [node distance=0, green, right=of c] {\bfseries Fixed by developers};
     \end{tikzpicture}
   \end{frame}
 
