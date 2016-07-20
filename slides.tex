@@ -275,7 +275,7 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Developers Initial Reaction to \const{}}
+    \frametitle{Developers' Initial Reaction to \const{}}
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
@@ -1218,13 +1218,14 @@ Declares function won't change order of strings in array
       \node at (\paperwidth * 8.1 / 10, \paperheight * 5.65 / 10) [fill=yellow!50] {
 Changes order of strings
       };
+      \visible<2> {
       \node (c) at (\paperwidth * 6.6 / 10, \paperheight / 9)
              [inner sep=0, circle, minimum size=6mm, scale=0.7,
              fill=green]
             {$\checkmark$};
       \node [node distance=0, green, right=of c] {\bfseries Fixed by developers};
+      }
     \end{tikzpicture}
-
   \end{frame}
 
   \begin{frame}
@@ -1244,11 +1245,13 @@ E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& 
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
+      \visible<2> {
       \node (c) at (\paperwidth * 6.6 / 10, \paperheight / 9)
              [inner sep=0, circle, minimum size=6mm, scale=0.7,
              fill=green]
             {$\checkmark$};
       \node [node distance=0, green, right=of c] {\bfseries Fixed by developers};
+      }
     \end{tikzpicture}
   \end{frame}
 
