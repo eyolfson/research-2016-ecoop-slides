@@ -778,6 +778,22 @@ Write allowed by compiler, but observable difference
   \end{frame}
 
   \begin{frame}
+    \frametitle{More Motivation}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\const{} as a Newbie Guard}
+
+    Declare methods \const{} you don't want others to change
+
+    \vspace{2em}
+    They'll move on when they trigger a compiler error
+
+    \vspace{2em}
+    ``Worthy'' developers just {\bfseries \color{blue} \texttt{const\_cast}}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Observe How Developers Use \const{}}
 
     %\frametitle{We Classify All Writes-Through-\const{}}
@@ -992,6 +1008,10 @@ Write allowed by compiler, but observable difference
   \end{frame}
 
   \begin{frame}
+    \frametitle{More Shadow Values}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Hypothesis for Logically Immutable}
     \large
     Attributes:
@@ -1089,6 +1109,26 @@ i \& n \& t \&   \& F \& i \& e \& l \& d \& D \& e \& s \& c \& r \& i \& p \& 
   \end{frame}
 
   \begin{frame}
+    \frametitle{Protobuf Performs Lazy Initialization}
+
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix at (\paperwidth / 2, \paperheight * 7 / 10) {
+b \& o \& o \& l \&   \& G \& e \& n \& e \& r \& a \& t \& o \& r \& : \& : \& G \& e \& n \& e \& r \& a \& t \& e \& ( \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& c \& o \& n \& s \& t \&   \& \{ \\
+  \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& f \& i \& l \& e \& \_ \&   \& = \&   \& f \& i \& l \& e \& ; \\
+   \&   \& |[black!50]|t \& |[black!50]|h \& |[black!50]|i \& |[black!50]|s \& |[black!50]|- \& |[black!50]|> \& p \& r \& i \& n \& t \& e \& r \& \_ \&   \& = \& \& p \& r \& i \& n \& t \& e \& r \& ; \\
+ \} \\
+      };
+      \visible<2> {
+        \node [person] (p2) at (\paperwidth * 0.28125, \paperheight / 6) {😀};
+        \node [speechsmall] (s2) at (\paperwidth * 3/ 8, \paperheight * 3 / 8) {Shallow\\Logical};
+        \draw [speechline] (p2) -- (s2);
+      }
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Protobuf Modifies Linked List}
     \centering
 %    \small
@@ -1132,6 +1172,32 @@ Changes linked list node through \texttt{p}, field is \texttt{mutable}
   \end{frame}
 
   \begin{frame}
+    \frametitle{LevelDB Caching}
+    \centering
+    \small
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix (Open) at (\paperwidth / 2, \paperheight * 7.5 / 10) {
+S \& t \& a \& t \& u \& s \&   \& T \& a \& b \& l \& e \& : \& : \& O \& p \& e \& n \& ( \& c \& o \& n \& s \& t \&   \& O \& p \& t \& i \& o \& n \& s \&   \& o \& p \& t \& i \& o \& n \& s \& , \&   \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{    \\
+\&  \& r \& e \& p \& - \& > \& c \& a \& c \& h \& e \& \_ \& i \& d \&   \& = \&   \&  |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& \& o \& p \& t \& i \& o \& n \& s \& . \& b \& l \& o \& c \& k \& \_ \& c \& a \& c \& h \& e \& - \& > \& N \& e \& w \& I \& d \& ( \& ) \\
+\}  \\
+      };
+      \matrix at (\paperwidth / 3, \paperheight * 5 / 10) {
+|[black!50]|. \& |[black!50]|. \& |[black!50]|. \&   \& N \& e \& w \& I \& d \& ( \& ) \&   \& \{ \\
+  \&   \& M \& u \& t \& e \& x \& L \& o \& c \& k \&   \& l \& ( \& i \& d \& \_ \& m \& u \& t \& e \& x \& \_ \& ) \& ; \\
+  \&   \& r \& e \& t \& u \& r \& n \&   \& + \& + \& ( \& l \& a \& s \& t \& \_ \& i \& d \& \_ \& ) \& ; \\
+\} \\
+      };
+      \visible<2> {
+        \node [person] (p5) at (\paperwidth * 15 / 16, \paperheight / 6) {😀};
+        \node [speechsmall] (s4) at (\paperwidth * 7 / 8, \paperheight * 3 / 8) {Deep\\Logical};
+        \draw [speechline, shorten <=1mm] (p5) -- (s4);
+      }
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{LevelDB Writing in Unit Tests}
     \centering
     \small
@@ -1161,6 +1227,35 @@ Changed \texttt{counter\_} field only used for unit tests
   \end{frame}
 
   \begin{frame}
+    \frametitle{LevelDB Modifies Linked List}
+    \centering
+%    \small
+    \begin{tikzpicture}
+      \matrix {
+v \& o \& i \& d \&   \& D \& e \& l \& e \& t \& e \& ( \& c \& o \& n \& s \& t \&   \& S \& n \& a \& p \& s \& h \& o \& t \& I \& m \& p \& l \& * \&   \& s \& ) \&   \& \{ \\
+  \&   \& a \& s \& s \& e \& r \& t \& ( \& s \& - \& > \& l \& i \& s \& t \& \_ \&   \& = \& = \&   \& t \& h \& i \& s \& ) \& ; \\
+  \&   \& s \& - \& > \& p \& r \& e \& v \& \_ \& - \& > \& n \& e \& x \& t \& \_ \&   \& = \&   \& s \& - \& > \& n \& e \& x \& t \& \_ \& ; \\
+  \&   \& s \& - \& > \& n \& e \& x \& t \& \_ \& - \& > \& p \& r \& e \& v \& \_ \&   \& = \&   \& s \& - \& > \& p \& r \& e \& v \& \_ \& ; \\
+  \&   \& d \& e \& l \& e \& t \& e \&   \& s \& ; \\
+\} \\
+      };
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \node at (\paperwidth / 2, \paperheight * 12 / 16) [fill=yellow!50] {
+Changes other linked list nodes through \texttt{s}
+      };
+      \visible<2> {
+        \node [person] at (\paperwidth * 1 / 16, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 0.28125, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 0.71875, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 15 / 16, \paperheight / 6) {😱};
+      }
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Remaining Projects' Overall Results}
     \large
     \begin{tabular}{b{3.4cm} b{2.6cm} b{3.2cm}}
@@ -1175,6 +1270,50 @@ Changed \texttt{counter\_} field only used for unit tests
       LLVM TableGen & \texttt{mutable} & Incorrect \\
       Tesseract & \texttt{mutable} & Incorrect \\
     \end{tabular}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{LLVM Writes to a \texttt{mutable} Field}
+    \centering
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix at (\paperwidth / 2, \paperheight * 6.5 / 10) {
+v \& o \& i \& d \&   \& D \& F \& A \& P \& a \& c \& k \& e \& t \& i \& z \& e \& r \& E \& m \& i \& t \& t \& e \& r \& : \& : \& r \& u \& n \& ( \& |[black!50]|. \& |[black!50]|. \& |[black!50]|. \& ) \&   \& \{ \\
+  \&   \& c \& o \& n \& s \& t \&   \& S \& t \& a \& t \& e \&   \& * \& N \& e \& w \& S \& t \& a \& t \& e \& ; \\
+  \&   \& N \& e \& w \& S \& t \& a \& t \& e \&   \& = \&  \& D \& . \& n \& e \& w \& S \& t \& a \& t \& e \& ( \& ) \& ; \\
+  \&   \& N \& e \& w \& S \& t \& a \& t \& e \& - \& > \& s \& t \& a \& t \& e \& I \& n \& f \& o \&   \& = \&   \& N \& e \& w \& S \& t \& a \& t \& e \& R \& e \& s \& o \& u \& r \& c \& e \& s \& ; \\
+\} \\
+      };
+      \visible<2> {
+        \node [person] at (\paperwidth * 1 / 16, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 0.28125, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 0.71875, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 15 / 16, \paperheight / 6) {😱};
+      }
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Tesseract Marks Header as Unreliable since Other Code Modifies}
+    \centering
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix at (\paperwidth / 2, \paperheight * 5.5 / 10) {
+c \& o \& n \& s \& t \&   \& c \& h \& a \& r \& * \&   \& S \& T \& R \& I \& N \& G \& : \& : \& s \& t \& r \& i \& n \& g \& ( \& ) \&   \& c \& o \& n \& s \& t \&   \& \{  \\
+  \&   \& c \& o \& n \& s \& t \&   \& S \& T \& R \& I \& N \& G \& \_ \& H \& E \& A \& D \& E \& R \& * \&   \& h \& e \& a \& d \& e \& r \&   \& = \&   \& G \& e \& t \& H \& e \& a \& d \& e \& r \& ( \& ) \& ; \\
+  \&   \& h \& e \& a \& d \& e \& r \& - \& > \& u \& s \& e \& d \& \_ \&   \& = \&   \& - \& 1 \& ; \\
+  \&   \& r \& e \& t \& u \& r \& n \&   \& G \& e \& t \& C \& S \& t \& r \& ( \& ) \& ; \\
+\} \\
+      };
+      \visible<2> {
+        \node [person] at (\paperwidth * 1 / 16, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 0.28125, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 0.71875, \paperheight / 6) {😱};
+        \node [person] at (\paperwidth * 15 / 16, \paperheight / 6) {😱};
+      }
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
