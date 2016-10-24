@@ -789,53 +789,65 @@ Write allowed by compiler, but observable difference
   \begin{frame}
     \frametitle{Attempt 0}
 
-    Grepping
+    Step 1 - Grep for \const{} and \texttt{const\_cast}
 
     \vspace{2em}
-    Way too many results
+    Step 2 - ???
+
+    \vspace{2em}
+    Step 3 - Meaningful results
   \end{frame}
 
   \begin{frame}
     \frametitle{Attempt 1}
 
-    Measure how much code is \const{}, and any changes
+    Idea: Measure how many APIs use \const{}
 
     \vspace{2em}
-    Found the more widely used the API, the more \const{}
+    Result: The more widely used the API, the more \const{}s
   \end{frame}
 
   \begin{frame}
     \frametitle{Attempt 2}
 
-    Find any commits removing/adding \const{}
+    Idea: Measure \const{} rate of change
 
     \vspace{2em}
-    Minor number of removals/additions
+    Result: Small number of removals/additions
 
     \vspace{2em}
-    Big removal since an object was immutable (no mutable methods)
+    Caveat: Many \const{} removals due to its redundancy for immutable objects (no mutable methods)
   \end{frame}
 
   \begin{frame}
     \frametitle{Attempt 3}
 
-    Initial static analysis, way too many false positives
+    Goal: Use static analysis to find any field writes in \const{} methods
+
+    \vspace{2em}
+    Result: Way too many false positives
   \end{frame}
 
   \begin{frame}
-    \frametitle{Personal Frustration}
+    \frametitle{Personal Frustration with Using \const{}}
 
-    LLVM Pass Framework is geared for transformations, not analysis
+    LLVM Pass Framework uses mutable arguments
+
+    (designed for transformations)
+
+    But for an analysis, could be all-\const{}
 
     \vspace{2em}
-    In analysis, all APIs are mutable (okay, you can add \const{} manually)
+    Okay, you can use \const{} for your arguments manually
+
+    (you need to be absolutely sure not to miss one)
 
     \vspace{2em}
     One incorrectly marked API forces you to awkwardly \texttt{\color{blue} \bfseries const\_cast}
   \end{frame}
 
   \begin{frame}
-    \frametitle{\const{} as a Newbie Guard}
+    \frametitle{Using \const{} as a Newbie Guard}
 
     Declare methods \const{} you don't want others to change
 
@@ -844,6 +856,12 @@ Write allowed by compiler, but observable difference
 
     \vspace{2em}
     ``Worthy'' developers just {\bfseries \color{blue} \texttt{const\_cast}}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Back on Track}
+
+    Next stop: our approach
   \end{frame}
 
   \begin{frame}
