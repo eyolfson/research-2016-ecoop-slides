@@ -778,7 +778,60 @@ Write allowed by compiler, but observable difference
   \end{frame}
 
   \begin{frame}
-    \frametitle{More Motivation}
+    \frametitle{Initial Goal: Is \const{} Effective?}
+
+    How many bugs does proper \const{} usage prevent?
+
+    \vspace{2em}
+    Can't measure directly, only occurs at compile time
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Attempt 0}
+
+    Grepping
+
+    \vspace{2em}
+    Way too many results
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Attempt 1}
+
+    Measure how much code is \const{}, and any changes
+
+    \vspace{2em}
+    Found the more widely used the API, the more \const{}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Attempt 2}
+
+    Find any commits removing/adding \const{}
+
+    \vspace{2em}
+    Minor number of removals/additions
+
+    \vspace{2em}
+    Big removal since an object was immutable (no mutable methods)
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Attempt 3}
+
+    Initial static analysis, way too many false positives
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Personal Frustration}
+
+    LLVM Pass Framework is geared for transformations, not analysis
+
+    \vspace{2em}
+    In analysis, all APIs are mutable (okay, you can add \const{} manually)
+
+    \vspace{2em}
+    One incorrectly marked API forces you to awkwardly \texttt{\color{blue} \bfseries const\_cast}
   \end{frame}
 
   \begin{frame}
@@ -1004,11 +1057,47 @@ Write allowed by compiler, but observable difference
 
 \& \& \# \& 1 \& \& i \& n \& \& m \& a \& i \& n \\
       };
+      \node [fill=yellow!50] at (\paperwidth / 2, \paperheight / 6) {At \texttt{store} instructions the analysis checks shadow value};
     \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
-    \frametitle{More Shadow Values}
+    \frametitle{Shadow Values with Pointers}
+
+    The least significant bit is \const{}-ness of value
+
+    \vspace{2em}
+    \hspace{2em} \tikz[baseline=-0.75ex]{\node[draw]{\texttt{const int * x}};} has value of \tikz[baseline=-0.75ex]{\node[fill=yellow!50]{\texttt{10}};}
+
+    \vspace{2em}
+    Dereferencing a pointer shifts the shadow value by one bit
+
+    \vspace{2em}
+    \hspace{2em} \tikz[baseline=-0.75ex]{\node[draw]{\texttt{*x}};} has value of \tikz[baseline=-0.75ex]{\node[fill=yellow!50]{\texttt{1}};}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{We Ignore Initialization Writes}
+
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \matrix (C) at (\paperwidth / 2, \paperheight * 2 / 3) {
+        c \& o \& n \& s \& t \& \& i \& n \& t \& \& x \& \& = \& \& 1 \& ; \\
+
+        * \& c \& o \& n \& s \&t \& \_ \& c \& a \& s \& t \& < \& i \& n \& t \& * \& > \& ( \& \& x \& ) \&  \& = \& \& 2 \&; \\
+      };
+      \matrix (LLVM) at (\paperwidth /2, \paperheight / 3) {
+        \% \& x \& \& = \& \& a \& l \& l \& o \& c \& a \& \& i \& 3 \& 2 \\
+
+        s \& t \& o \& r \& e \& \& 1 \& , \& \& \% \& x \\
+
+        s \& t \& o \& r \& e \& \& 2 \& , \& \& \% \& x \\
+      };
+      \node [yshift=0.5ex] at (C-2-19) {\texttt{\&}};
+      \draw [arrow] (C) -- node [right] {\small translates to} (LLVM);
+      \node [fill=yellow!50] at (\paperwidth / 2, \paperheight / 6) {Our additional metadata removes checks from the first store};
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
@@ -1425,7 +1514,6 @@ since developers fix them
       \node [inner sep=0, node distance=1mm, right=of github.south east, anchor=south west] {\Large \texttt{/eyolfson/}};
       \node (art) [node distance=2mm, below=of github.south east, xshift=2mm] {\small \texttt{research-2016-ecoop-artifact}};
       \node [inner sep=0, node distance=0, below=of art] {\small \texttt{research-2016-ecoop-paper}};
-      \node at (\paperwidth / 2, \paperheight / 8) {\small Thanks to Derek Rayside for helping improve presentation clarity};
       \node [node distance=8mm, above=of github.south east] {\Large \texttt{https://eyl.io/}};
     \end{tikzpicture}
 
