@@ -838,12 +838,29 @@ Write allowed by compiler, but observable difference
     But for an analysis, could be all-\const{}
 
     \vspace{2em}
-    Okay, you can use \const{} for your arguments manually
-
-    (you need to be absolutely sure not to miss one)
-
     \vspace{2em}
-    One incorrectly marked API forces you to awkwardly \texttt{\color{blue} \bfseries const\_cast}
+    \vspace{2em}
+    \vspace{2em}
+    \vspace{2em}
+    \vspace{2em}
+
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)},
+                        node distance=5mm]
+      \matrix (bar) at ($ (current page.center) + (0, 0) $) {
+        v \& o \& i \& d \& \& b \& a \& r \& ( \& f \& o \& o \& \& * \& f \& ) \& \& \{ \\
+
+        \& \& |[blue]|c \& |[blue]|o \& |[blue]|n \& |[blue]|s \& |[blue]|t \& \& f \& o \& o \& \& * \& \& m \& y \& \_ \& f \& o \& o \& \& = \& \& f \& ; \\
+
+        \} \\
+      };
+      \matrix (baz) at ($ (current page.center) - (0, 30mm) $) {
+        v \& o \& i \& d \& \& b \& a \& z \& ( \& f \& o \& o \& \& * \& f \& ) \& ; \\
+      };
+      \node [fill=yellow!50, node distance=1mm, below=of bar] {Okay, just \const{} manually};
+      \node [fill=yellow!50, node distance=1mm, below=of baz] {Incorrectly marked, forces \texttt{\color{blue} \bfseries const\_cast} to call};
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
@@ -1515,25 +1532,31 @@ E \& m \& u \& l \& a \& t \& o \& r \& : \& : \& p \& r \& i \& n \& t \& ( \& 
             \vspace{2em}
             They appear to be undesirable
 
-since developers fix them
-
-            % they are fixed by developers
+            since developers fix them
     \end{enumerate}
   \end{frame}
 
   \begin{frame}
-    \frametitle{Try It Out}
+    \frametitle{Current Research}
+
+    Static analysis for deep logical immutability
+
+    \vspace{2em}
+    Thorough fully sensitive anaylsis focused on methods
+
+    \vspace{2em}
+    Currently verifies caching examples
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Repositories Available}
 
     \begin{tikzpicture}[remember picture,
                         overlay,
                         shift={(current page.south west)}]
-      \node at (\paperwidth / 3, \paperheight / 2) {\includegraphics[scale=0.1]{aec-badge-ecoop}};
-      \node [inner sep=0, anchor=east] (github) at (\paperwidth * 2/ 3, \paperheight / 2) {\includegraphics[scale=0.15]{github-logo}};
-      \node [inner sep=0, node distance=1mm, right=of github.south east, anchor=south west] {\Large \texttt{/eyolfson/}};
-      \node (art) [node distance=2mm, below=of github.south east, xshift=2mm] {\small \texttt{research-2016-ecoop-artifact}};
-      \node [inner sep=0, node distance=0, below=of art] {\small \texttt{research-2016-ecoop-paper}};
-      \node [node distance=8mm, above=of github.south east] {\Large \texttt{https://eyl.io/}};
+      \node at (\paperwidth / 2, \paperheight * 2 / 3) {\Large \texttt{https://eyl.io/research/}};
+      \node at (\paperwidth / 3, \paperheight / 3) {\includegraphics[scale=0.1]{aec-badge-ecoop}};
+      \node at (\paperwidth * 2/ 3, \paperheight / 3) {\includegraphics[scale=0.3]{github-logo}};
     \end{tikzpicture}
-
   \end{frame}
 \end{document}
