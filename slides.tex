@@ -1102,13 +1102,20 @@ Write allowed by compiler, but observable difference
     The least significant bit is \const{}-ness of value
 
     \vspace{2em}
-    \hspace{2em} \tikz[baseline=-0.75ex]{\node[draw]{\texttt{const int * x}};} has value of \tikz[baseline=-0.75ex]{\node[fill=yellow!50]{\texttt{10}};}
+    \hspace{2em} \tikz[baseline=-0.75ex]{\node[draw]{\texttt{const int * x}};} has value of \tikz[baseline=-0.75ex]{\node[fill=yellow!50]{\texttt{10}};} (modify pointer)
 
-    \vspace{2em}
+    \vspace{4em}
     Dereferencing a pointer shifts the shadow value by one bit
 
     \vspace{2em}
-    \hspace{2em} \tikz[baseline=-0.75ex]{\node[draw]{\texttt{*x}};} has value of \tikz[baseline=-0.75ex]{\node[fill=yellow!50]{\texttt{1}};}
+    \hspace{2em} \tikz[baseline=-0.75ex]{\node[draw]{\texttt{*x}};} has value of \tikz[baseline=-0.75ex]{\node[fill=yellow!50]{\texttt{1}};} (don't modify \texttt{int})
+    \begin{tikzpicture}[remember picture,
+                        overlay,
+                        shift={(current page.south west)}]
+      \draw[arrow, blue, very thick] (25mm, 55mm) -- (25mm, 51mm) -- node [below] {\small applies to} (37mm, 51mm) -- (37mm, 55mm);
+
+      %\node at (3cm, 5cm) {HEllo};
+    \end{tikzpicture}
   \end{frame}
 
   \begin{frame}
@@ -1267,7 +1274,7 @@ p \& - \& > \& n \& e \& x \& t \& \_ \&   \& = \&   \& |[black!50]|t \& |[black
                         overlay,
                         shift={(current page.south west)}]
       \node at (\paperwidth / 2, \paperheight * 12 / 16) [fill=yellow!50] {
-Changes linked list node through \texttt{p}, field is \texttt{mutable}
+Changes linked list node through \texttt{p}, field \texttt{next\_} is \texttt{mutable}
       };
       \visible<2> {
         \node [person] at (\paperwidth * 1 / 16, \paperheight / 6) {😱};
